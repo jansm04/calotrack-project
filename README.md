@@ -31,4 +31,9 @@ calculators and applications to find out and keep track of my numbers.
 If I had an application like this, I would be able to access all these
 things conveniently in one place.
 
+## User Stories:
+- As a user, I want to be able to find out how many calories I need to consume a day in order to meet my weight goal
+- As a user, I want to be able to log all the food and calories that I've consumed in a day and see my total calorie count for that day
+- As a user, I want to be able to add each day's data to a list of all the previous days and their data
+- As a user, I want to be able to view the data from previous days, so I can see how I've been progressing
 
