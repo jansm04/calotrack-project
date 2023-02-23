@@ -8,6 +8,7 @@ import java.util.List;
 
 import static ui.Main.calc;
 
+// Calendar class: allows the user to add an arbitrary number of CalorieLogs to a 'calendar'
 public class Calendar {
 
     List<CalorieLog> days;

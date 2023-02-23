@@ -3,6 +3,7 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
+// CalorieLog class: handles the user's food and calories for each food item
 public class CalorieLog {
 
     List<String> foods;
