@@ -74,16 +74,12 @@ public class Calculator {
     // EFFECTS: calculates and returns total daily caloric requirement
     public int totalDailyCaloricRequirement() {
         int total = 0;
-        switch (objective) {
-            case "gain":
-                total = bmrCalculator() + differenceCalculator() + activityBonus();
-                break;
-            case "lose":
-                total = bmrCalculator() - differenceCalculator() + activityBonus();
-                break;
-            case "maintain":
-                total = bmrCalculator() + activityBonus();
-                break;
+        if (objective.equals("gain")) {
+            total = bmrCalculator() + differenceCalculator() + activityBonus();
+        } else if (objective.equals("lose")) {
+            total = bmrCalculator() - differenceCalculator() + activityBonus();
+        } else {
+            total = bmrCalculator() + activityBonus();
         }
         return total;
     }
