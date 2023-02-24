@@ -28,11 +28,13 @@ public class Calculator {
     public int bmrCalculator() {
         double heightInCm = (heightFeet * 12 + heightInches) * 2.54;
         double weightInKg = weight * 0.453592;
-        int bmr = 0;
+        int bmr;
         if (gender.equals("male")) {
             bmr = (int) (10 * weightInKg + 6.25 * heightInCm - 5 * age + 5);
         } else if (gender.equals("female")) {
             bmr = (int) (10 * weightInKg + 6.25 * heightInCm - 5 * age - 161);
+        } else {
+            bmr = 0;
         }
         return bmr;
     }

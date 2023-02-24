@@ -1,17 +1,191 @@
 package ui;
 
+import model.Calculator;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 // Calendar class: allows the user to add an arbitrary number of CalorieLogs to a 'calendar'
 public class Calendar {
 
     List<CalorieLog> days;
+    Scanner scanner;
+    Calculator calc;
+    CalorieLog log;
 
     // EFFECTS: constructs a calendar with an empty list of entries
     public Calendar() {
         this.days = new ArrayList<>();
+        this.calc = new Calculator();
+        this.scanner = new Scanner(System.in);
     }
+
+
+    // EFFECTS: prompts the user to calculate their required cals
+    public void calculateCals() {
+        System.out.println("Let's calculate your daily caloric requirement!");
+        getInfo();
+        getGoal();
+        getResults();
+    }
+
+    // EFFECTS: creates a new CalorieLog object and prompts user to add foods + see other options
+    public void logFoods() {
+        log = new CalorieLog();
+        while (true) {
+            chooseNextOptionLog();
+            char answer2 = scanner.next().charAt(0);
+            if (answer2 == 'n') {
+                optionN();
+            } else if (answer2 == 'r') {
+                optionR();
+            } else if (answer2 == 's') {
+                optionS();
+            } else if (answer2 == 'v') {
+                optionV();
+            } else {
+                addEntry(log);
+                break;
+            }
+        }
+    }
+
+    // EFFECTS: prompt user to choose next option
+    public void options() {
+        while (true) {
+            chooseNextOptionCalendar();
+            char answer3 = scanner.next().charAt(0);
+            if (answer3 == 'c') {
+                getInfo();
+                getGoal();
+                getResults();
+            } else if (answer3 == 'd') {
+                logFoods();
+            } else if (answer3 == 'v') {
+                viewCalendar();
+            } else if (answer3 == 'i') {
+                System.out.println("Please enter the index of the log you would like to view:");
+                int index = scanner.nextInt();
+                viewLogInCalendar(index);
+            } else {
+                System.out.println("Goodbye!");
+                break;
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gets the user's physical information
+    private void getInfo() {
+        System.out.println("What is your gender? (Enter either \"male\" or \"female\")");
+        String gender = scanner.next();
+        calc.setGender(gender);
+
+        System.out.println("What is your age?");
+        int age = scanner.nextInt();
+        calc.setAge(age);
+
+        System.out.println("What is your height?");
+        System.out.print("Feet: ");
+        int heightFeet = scanner.nextInt();
+        calc.setHeightFeet(heightFeet);
+        System.out.print("Inches: ");
+        int heightInches = scanner.nextInt();
+        calc.setHeightInches(heightInches);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gets the user's goal + details
+    private void getGoal() {
+        System.out.println("What is your weight in lbs?");
+        double weight = scanner.nextDouble();
+        calc.setWeight(weight);
+
+        System.out.println("What is your weekly level of activity? (Enter the corresponding number from 1-5)"
+                + "\n1 - None (Exercise 0 times a week)"
+                + "\n2 - Light (Exercise 1-2 times a week)"
+                + "\n3 - Moderate (Exercise 3-5 times a week)"
+                + "\n4 - Hard (Exercise 6-7 times a week)"
+                + "\n5 - Extreme (Exercise over 7 times a week)");
+        int levelOfActivity = scanner.nextInt();
+        calc.setLevelOfActivity(levelOfActivity);
+
+        System.out.println("Would you like to gain, lose or maintain your current weight? "
+                + "(Enter either \"gain\", \"lose\" or \"maintain\")");
+        String objective = scanner.next();
+        calc.setObjective(objective);
+
+        if (!objective.equals("maintain")) {
+            System.out.println("How much weight would you like to " + objective + "? (In lbs)");
+            double weightGoal = scanner.nextDouble();
+            calc.setWeightGoal(weightGoal);
+            System.out.println("In how many weeks would you like to achieve this goal?");
+            int weeks = scanner.nextInt();
+            calc.setTime(weeks);
+        }
+    }
+
+    // EFFECTS: prints results of goal info and calculations
+    private void getResults() {
+        System.out.println("Your daily caloric requirement is...");
+        System.out.println(calc.totalDailyCaloricRequirement() + " cals!");
+    }
+
+    //EFFECTS: print next options for logging food
+    private void chooseNextOptionLog() {
+        System.out.println("Choose an option: "
+                + "\nn - new food"
+                + "\nr - remove a food"
+                + "\ns - set today's weight"
+                + "\nv - view current log"
+                + "\nq - end today's log");
+    }
+
+    // MODIFIES: log
+    // EFFECTS: collects new food + calories
+    private void optionN() {
+        System.out.print("Food: ");
+        String food = scanner.next();
+        log.addFood(food);
+        System.out.print("Calories: ");
+        int calNum = scanner.nextInt();
+        log.addNumOfCals(calNum);
+    }
+
+    // MODIFIES: log
+    // EFFECTS: prompts user to remove food at specific index
+    private void optionR() {
+        log.viewLog();
+        System.out.println("Enter the index of the food you would like to remove: ");
+        int index = scanner.nextInt();
+        log.removeFoodAndCals(index);
+    }
+
+    // MODIFIES: log
+    // EFFECTS: collects users weight
+    private void optionS() {
+        System.out.print("Today's weight: ");
+        double weight = scanner.nextDouble();
+        log.setWeight(weight);
+    }
+
+    // EFFECTS: prints log
+    private void optionV() {
+        log.viewLog();
+    }
+
+    // EFFECTS: prints out next options in calendar
+    private void chooseNextOptionCalendar() {
+        System.out.println("Choose an option: "
+                + "\nc - calculate new daily caloric requirement"
+                + "\nd - new daily log"
+                + "\nv - view calendar"
+                + "\ni - view a past log"
+                + "\nq - quit program");
+    }
+
+
 
     // MODIFIES: this
     // EFFECTS: adds a CalorieLog to the list of CalorieLogs
@@ -30,9 +204,38 @@ public class Calendar {
         }
     }
 
+    // EFFECTS: prints "YES" if goal was met, "NO" if not
+    private String outcome(CalorieLog log) {
+        String outcome = "";
+        if (calc.getObjective().equals("gain") || calc.getObjective().equals("maintain")) {
+            if (log.totalCals() >= calc.totalDailyCaloricRequirement()) {
+                outcome = "YES";
+            } else {
+                outcome = "NO";
+            }
+        } else if (calc.getObjective().equals("lose")) {
+            if (log.totalCals() <= calc.totalDailyCaloricRequirement()) {
+                outcome = "YES";
+            } else {
+                outcome = "NO";
+            }
+        }
+        return outcome;
+    }
+
     // EFFECTS: prints out correct amount of space between columns
-    private String space(String s) {
+    private String space1(String s) {
         int length = 19 - s.length();
+        String tab = "";
+        for (int i = 0; i < length; i++) {
+            tab += " ";
+        }
+        return tab;
+    }
+
+    // EFFECTS: prints out correct amount of space between columns
+    private String space2(String s) {
+        int length = 18 - s.length();
         String tab = "";
         for (int i = 0; i < length; i++) {
             tab += " ";
@@ -42,15 +245,16 @@ public class Calendar {
 
     // EFFECTS: prints out the calendar (a list of all the calorie logs)
     public void viewCalendar() {
-        System.out.println("Entry #      Total Calories     Weight");
+        System.out.println("Entry #      Total Calories     Reached Goal      Weight");
         for (int i = 0; i < days.size(); i++) {
             String weight = "";
             if (days.get(i).getWeight() != 0) {
                 weight = Double.toString(days.get(i).getWeight());
             }
-            System.out.println(i + "            "
-                    + days.get(i).totalCals() + space(Integer.toString(days.get(i).totalCals()))
-                    + weight);
+            System.out.println(i + "            " +
+                    days.get(i).totalCals() + space1(Integer.toString(days.get(i).totalCals())) +
+                    outcome(days.get(i)) + space2(outcome(days.get(i))) +
+                    weight);
         }
     }
 
