@@ -30,7 +30,10 @@ public class Calendar {
         getResults();
     }
 
-    // EFFECTS: creates a new CalorieLog object and prompts user to add foods + see other options
+    // MODIFIES: this
+    // EFFECTS: creates a new CalorieLog object and prompts user to add foods + see other options. Once the user
+    //          is finished logging their food and calories, then the log gets added to the list of logs in the
+    //          calendar
     public void logFoods() {
         log = new CalorieLog();
         while (true) {
@@ -88,13 +91,9 @@ public class Calendar {
         int age = scanner.nextInt();
         calc.setAge(age);
 
-        System.out.println("What is your height?");
-        System.out.print("Feet: ");
-        int heightFeet = scanner.nextInt();
-        calc.setHeightFeet(heightFeet);
-        System.out.print("Inches: ");
-        int heightInches = scanner.nextInt();
-        calc.setHeightInches(heightInches);
+        System.out.println("What is your height in cm?");
+        int height = scanner.nextInt();
+        calc.setHeight(height);
     }
 
     // MODIFIES: this
@@ -174,6 +173,8 @@ public class Calendar {
         log.setWeight(weight);
     }
 
+    // MODIFIES: log
+    // EFFECTS: prompts the user to enter the date and then sets the date for the current log
     private void optionD() {
         System.out.print("Month: ");
         String month = scanner.next();
@@ -184,7 +185,7 @@ public class Calendar {
         log.setDate(day, month, year);
     }
 
-    // EFFECTS: prints log
+    // EFFECTS: prints log as a 3xn table, where n is the number of foods in the list
     private void optionV() {
         log.viewLog();
     }
@@ -201,13 +202,13 @@ public class Calendar {
     }
 
 
-
     // MODIFIES: this
     // EFFECTS: adds a CalorieLog to the list of CalorieLogs
     public void addEntry(CalorieLog log) {
         days.add(log);
     }
 
+    // REQUIRES: 0 <= index <= days.size()
     // MODIFIES: this
     // EFFECTS: removes a CalorieLog from the list of CalorieLogs
     public void removeEntry(int index) {
@@ -223,12 +224,14 @@ public class Calendar {
     private String outcome(CalorieLog log) {
         String outcome = "";
         if (calc.getObjective().equals("gain") || calc.getObjective().equals("maintain")) {
+            // goal is met if total for the day exceeds daily required amount of cals
             if (log.totalCals() >= calc.totalDailyCaloricRequirement()) {
                 outcome = "YES";
             } else {
                 outcome = "NO";
             }
         } else if (calc.getObjective().equals("lose")) {
+            // goal is met if total for the day is below daily cal limit
             if (log.totalCals() <= calc.totalDailyCaloricRequirement()) {
                 outcome = "YES";
             } else {
@@ -238,19 +241,10 @@ public class Calendar {
         return outcome;
     }
 
-    // EFFECTS: prints out correct amount of space between columns
-    private String space1(String s) {
-        int length = 19 - s.length();
-        String tab = "";
-        for (int i = 0; i < length; i++) {
-            tab += " ";
-        }
-        return tab;
-    }
-
-    // EFFECTS: prints out correct amount of space between columns
-    private String space2(String s) {
-        int length = 18 - s.length();
+    // EFFECTS: prints out correct amount of space between columns. NOTE: this method is just for phase 1, so the
+    //          table looks cleaner when printed in the console
+    private String space(String s, int spacing) {
+        int length = spacing - s.length();
         String tab = "";
         for (int i = 0; i < length; i++) {
             tab += " ";
@@ -267,8 +261,8 @@ public class Calendar {
                 weight = Double.toString(days.get(i).getWeight());
             }
             System.out.println(i + "            "
-                    + days.get(i).totalCals() + space1(Integer.toString(days.get(i).totalCals()))
-                    + outcome(days.get(i)) + space2(outcome(days.get(i)))
+                    + days.get(i).totalCals() + space(Integer.toString(days.get(i).totalCals()), 19)
+                    + outcome(days.get(i)) + space(outcome(days.get(i)), 18)
                     + weight);
         }
     }

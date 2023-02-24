@@ -14,8 +14,7 @@ public class CalculatorTest {
         calc = new Calculator();
         calc.setGender("male");
         calc.setAge(18);
-        calc.setHeightFeet(5);
-        calc.setHeightInches(10);
+        calc.setHeight(178);
         calc.setWeight(150);
         calc.setWeightGoal(20);
         calc.setLevelOfActivity(1);
@@ -67,11 +66,11 @@ public class CalculatorTest {
         assertTrue(total4 < total5);
 
         // check that the totals increase by 250 per activity level
-        assertEquals(1706, total1);
-        assertEquals(1956, total2);
-        assertEquals(2206, total3);
-        assertEquals(2456, total4);
-        assertEquals(2706, total5);
+        assertEquals(1707, total1);
+        assertEquals(1957, total2);
+        assertEquals(2207, total3);
+        assertEquals(2457, total4);
+        assertEquals(2707, total5);
     }
 
     @Test

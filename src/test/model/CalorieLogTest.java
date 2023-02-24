@@ -152,4 +152,12 @@ public class CalorieLogTest {
         log.setWeight(153.2);
         assertEquals(153.2, log.getWeight());
     }
+
+    @Test
+    public void setDateTest() {
+        log.setDate(1, "January", 2023);
+        assertEquals(1, log.getDate().getDay());
+        assertEquals("January", log.getDate().getMonth());
+        assertEquals(2023, log.getDate().getYear());
+    }
 }

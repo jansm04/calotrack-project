@@ -16,7 +16,8 @@ public class CalorieLog {
     //            list of foods
     Date date;
 
-    // EFFECTS: constructs a calorie log with an empty list of foods and an empty list of calories
+    // EFFECTS: constructs a calorie log with an empty list of foods and an empty list of calories, and with
+    //          weight set to 0
     public CalorieLog() {
         this.foods = new LinkedList<>();
         this.cals = new LinkedList<>();
@@ -27,12 +28,16 @@ public class CalorieLog {
     // EFFECTS: adds a food item to the list of foods
     public void addFood(String food) {
         foods.add(food);
+        // NOTE: it is okay to have the same food twice as it is very possible for a user to
+        //       eat the same food twice in one day
     }
 
     // MODIFIES: this
     // EFFECTS: adds a calorie number to the list of calories
     public void addNumOfCals(int calNum) {
         cals.add(calNum);
+        // NOTE: it is also okay to have the same number twice, as it is very possible for a user
+        //       to eat two foods with the same number of cals in one day
     }
 
     // MODIFIES: this
@@ -48,7 +53,8 @@ public class CalorieLog {
         }
     }
 
-    // EFFECTS: prints out correct amount of space between columns
+    // EFFECTS: prints out correct amount of space between columns. NOTE: this method is just for phase 1, so the
+    //          table looks cleaner when printed in the console
     private String space(String s) {
         int length = 20 - s.length();
         String tab = "";
@@ -88,6 +94,10 @@ public class CalorieLog {
 
     public void setDate(int day, String month, int year) {
         date = new Date(day, month, year);
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     public double getWeight() {

@@ -3,19 +3,14 @@ package model;
 // Calculator class: inputs all user variables and calculates required daily caloric intake
 public class Calculator {
 
-    String gender;
+    String gender; // male or female
     int age;
-    int heightFeet;
-    int heightInches;
-    double weight;
+    double height; // in cm
+    double weight; // in lbs
     double weightGoal; // pounds desired to either gain or lose
     int levelOfActivity; // weekly level of activity from 1-5 (1 being the lowest)
-    String objective; //gain, lose, or maintain
+    String objective; // gain, lose, or maintain
     int time; //in weeks
-
-    // EFFECTS: constructs a calculator
-    public Calculator() {
-    }
 
     // REQUIRES: gender is one of:
     //                  - "male"
@@ -26,13 +21,12 @@ public class Calculator {
     //           weight > 0
     // EFFECTS: calculates BMR (Basal Metabolic Rate) based on gender (rounds to int)
     public int bmrCalculator() {
-        double heightInCm = (heightFeet * 12 + heightInches) * 2.54;
-        double weightInKg = weight * 0.453592;
+        double weightInKg = weight * 0.453592; // converts weight from lbs to kg
         int bmr;
         if (gender.equals("male")) {
-            bmr = (int) (10 * weightInKg + 6.25 * heightInCm - 5 * age + 5);
+            bmr = (int) (10 * weightInKg + 6.25 * height - 5 * age + 5); // calculates bmr for men
         } else {
-            bmr = (int) (10 * weightInKg + 6.25 * heightInCm - 5 * age - 161);
+            bmr = (int) (10 * weightInKg + 6.25 * height - 5 * age - 161); // calculates bmr for women
         }
         return bmr;
     }
@@ -51,33 +45,34 @@ public class Calculator {
             case 5:
                 return 1000;
             default:
-                return 0;
+                return 0; // if levelOfActivity is 1, then method returns default value
         }
     }
-
-
 
 
     // REQUIRES: weightGoal > 0
     //           time > 0
     // EFFECTS: calculates daily cals needed to be consumed/subtracted to reach weight goal
     private int differenceCalculator() {
-        int days = time * 7;
-        double calsNeeded = weightGoal * 3500;
-        return (int) (calsNeeded / days);
+        int days = time * 7; // converts time from weeks to days
+        double calsNeeded = weightGoal * 3500; // one pound of weight equates to roughly 3500 calories
+        return (int) (calsNeeded / days); // divided cals (in weight) by number of days, and takes int approx.
     }
 
 
     // REQUIRES: objective is one of:
     //                  - "gain"
     //                  - "lose"
-    // EFFECTS: calculates and returns total daily caloric requirement
+    //                  - "maintain"
+    // EFFECTS: calculates and returns total daily caloric requirement by adding BMR with additional cals
+    //          burned through exercise, and then possible adding/subtracting weight goal difference according
+    //          to objective
     public int totalDailyCaloricRequirement() {
-        int total = 0;
+        int total;
         if (objective.equals("gain")) {
-            total = bmrCalculator() + differenceCalculator() + activityBonus();
+            total = bmrCalculator() + differenceCalculator() + activityBonus(); // adds difference for weight gain
         } else if (objective.equals("lose")) {
-            total = bmrCalculator() - differenceCalculator() + activityBonus();
+            total = bmrCalculator() - differenceCalculator() + activityBonus(); // subtracts difference for weight loss
         } else {
             total = bmrCalculator() + activityBonus();
         }
@@ -96,12 +91,8 @@ public class Calculator {
         this.age = age;
     }
 
-    public void setHeightFeet(int heightFeet) {
-        this.heightFeet = heightFeet;
-    }
-
-    public void setHeightInches(int heightInches) {
-        this.heightInches = heightInches;
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     public void setWeight(double weight) {

@@ -7,6 +7,7 @@ public class Date {
     String month;
     int year;
 
+    // EFFECTS: constructs a date with a day, month and year
     public Date(int day, String month, int year) {
         this.day = day;
         this.month = month;
