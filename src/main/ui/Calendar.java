@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class Calendar {
 
     List<CalorieLog> days;
-    Scanner scanner;
     Calculator calc;
+    Scanner scanner;
     CalorieLog log;
 
     // EFFECTS: constructs a calendar with an empty list of entries
@@ -251,10 +251,10 @@ public class Calendar {
             if (days.get(i).getWeight() != 0) {
                 weight = Double.toString(days.get(i).getWeight());
             }
-            System.out.println(i + "            " +
-                    days.get(i).totalCals() + space1(Integer.toString(days.get(i).totalCals())) +
-                    outcome(days.get(i)) + space2(outcome(days.get(i))) +
-                    weight);
+            System.out.println(i + "            "
+                    + days.get(i).totalCals() + space1(Integer.toString(days.get(i).totalCals()))
+                    + outcome(days.get(i)) + space2(outcome(days.get(i)))
+                    + weight);
         }
     }
 
