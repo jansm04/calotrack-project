@@ -42,8 +42,6 @@ public class Calculator {
     // EFFECTS: converts levelOfActivity to additional cals needed to be consumed each day
     private int activityBonus() {
         switch (levelOfActivity) {
-            case 1:
-                return 0;
             case 2:
                 return 250;
             case 3:
@@ -53,7 +51,7 @@ public class Calculator {
             case 5:
                 return 1000;
             default:
-                return -1;
+                return 0;
         }
     }
 
