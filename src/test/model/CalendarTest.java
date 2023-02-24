@@ -1,4 +1,4 @@
-package modelTest;
+package model;
 
 import ui.CalorieLog;
 import org.junit.jupiter.api.BeforeEach;

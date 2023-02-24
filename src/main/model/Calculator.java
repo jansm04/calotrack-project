@@ -31,10 +31,8 @@ public class Calculator {
         int bmr;
         if (gender.equals("male")) {
             bmr = (int) (10 * weightInKg + 6.25 * heightInCm - 5 * age + 5);
-        } else if (gender.equals("female")) {
-            bmr = (int) (10 * weightInKg + 6.25 * heightInCm - 5 * age - 161);
         } else {
-            bmr = 0;
+            bmr = (int) (10 * weightInKg + 6.25 * heightInCm - 5 * age - 161);
         }
         return bmr;
     }
