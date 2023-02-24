@@ -1,5 +1,7 @@
 package ui;
 
+import model.Date;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class CalorieLog {
     // INVARIANT: the list of foods and the list of cals always have the same length, as the nth element
     //            in the list of calories is the number of calories contained by the nth element of the
     //            list of foods
+    Date date;
 
     // EFFECTS: constructs a calorie log with an empty list of foods and an empty list of calories
     public CalorieLog() {
@@ -69,6 +72,9 @@ public class CalorieLog {
         if (weight != 0) {
             System.out.println("Weight: " + weight + " lbs.");
         }
+        if (date != null) {
+            System.out.println("Date: " + date.getMonth() + " " + date.getDay() + ", " + date.getYear());
+        }
     }
 
     // EFFECTS: returns sum of all calories in log
@@ -78,6 +84,10 @@ public class CalorieLog {
             sum += c;
         }
         return sum;
+    }
+
+    public void setDate(int day, String month, int year) {
+        date = new Date(day, month, year);
     }
 
     public double getWeight() {

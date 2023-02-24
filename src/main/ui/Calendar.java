@@ -42,6 +42,8 @@ public class Calendar {
                 optionR();
             } else if (answer2 == 's') {
                 optionS();
+            } else if (answer2 == 'd') {
+                optionD();
             } else if (answer2 == 'v') {
                 optionV();
             } else {
@@ -134,10 +136,12 @@ public class Calendar {
 
     //EFFECTS: print next options for logging food
     private void chooseNextOptionLog() {
+        System.out.println();
         System.out.println("Choose an option: "
                 + "\nn - new food"
                 + "\nr - remove a food"
                 + "\ns - set today's weight"
+                + "\nd - set today's date"
                 + "\nv - view current log"
                 + "\nq - end today's log");
     }
@@ -170,6 +174,16 @@ public class Calendar {
         log.setWeight(weight);
     }
 
+    private void optionD() {
+        System.out.print("Month: ");
+        String month = scanner.next();
+        System.out.print("Day: ");
+        int day = scanner.nextInt();
+        System.out.print("Year: ");
+        int year = scanner.nextInt();
+        log.setDate(day, month, year);
+    }
+
     // EFFECTS: prints log
     private void optionV() {
         log.viewLog();
@@ -177,6 +191,7 @@ public class Calendar {
 
     // EFFECTS: prints out next options in calendar
     private void chooseNextOptionCalendar() {
+        System.out.println();
         System.out.println("Choose an option: "
                 + "\nc - calculate new daily caloric requirement"
                 + "\nd - new daily log"
