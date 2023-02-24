@@ -53,21 +53,15 @@ public class Calendar {
     // EFFECTS: prints out correct amount of space between columns
     private String space1(String s) {
         int length = 19 - s.length();
-        String tab = "";
-        for (int i = 0; i < length; i++) {
-            tab += " ";
-        }
-        return tab;
+        String space = " ";
+        return space.repeat(Math.max(0, length));
     }
 
     // EFFECTS: prints out correct amount of space between columns
     private String space2(String s) {
         int length = 10 - s.length();
-        String tab = "";
-        for (int i = 0; i < length; i++) {
-            tab += " ";
-        }
-        return tab;
+        String space = " ";
+        return space.repeat(Math.max(0, length));
     }
 
     // EFFECTS: prints out the calendar (a list of all the calorie logs)
