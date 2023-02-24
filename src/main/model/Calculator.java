@@ -8,8 +8,8 @@ public class Calculator {
     int heightFeet;
     int heightInches;
     double weight;
-    double weightGoal;
-    int levelOfActivity;
+    double weightGoal; // pounds desired to either gain or lose
+    int levelOfActivity; // weekly level of activity from 1-5 (1 being the lowest)
     String objective; //gain, lose, or maintain
     int time; //in weeks
 

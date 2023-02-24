@@ -3,13 +3,12 @@ package ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ui.Main.calc;
-
 // Calendar class: allows the user to add an arbitrary number of CalorieLogs to a 'calendar'
 public class Calendar {
 
     List<CalorieLog> days;
 
+    // EFFECTS: constructs a calendar with an empty list of entries
     public Calendar() {
         this.days = new ArrayList<>();
     }
@@ -31,51 +30,27 @@ public class Calendar {
         }
     }
 
-    // EFFECTS: prints "YES" if goal was met, "NO" if not
-    private String outcome(CalorieLog log) {
-        String outcome = "";
-        if (calc.getObjective().equals("gain") || calc.getObjective().equals("maintain")) {
-            if (log.totalCals() >= calc.totalDailyCaloricRequirement()) {
-                outcome = "YES";
-            } else {
-                outcome = "NO";
-            }
-        } else if (calc.getObjective().equals("lose")) {
-            if (log.totalCals() <= calc.totalDailyCaloricRequirement()) {
-                outcome = "YES";
-            } else {
-                outcome = "NO";
-            }
-        }
-        return outcome;
-    }
-
     // EFFECTS: prints out correct amount of space between columns
-    private String space1(String s) {
+    private String space(String s) {
         int length = 19 - s.length();
-        String space = " ";
-        return space.repeat(Math.max(0, length));
-    }
-
-    // EFFECTS: prints out correct amount of space between columns
-    private String space2(String s) {
-        int length = 10 - s.length();
-        String space = " ";
-        return space.repeat(Math.max(0, length));
+        String tab = "";
+        for (int i = 0; i < length; i++) {
+            tab += " ";
+        }
+        return tab;
     }
 
     // EFFECTS: prints out the calendar (a list of all the calorie logs)
     public void viewCalendar() {
-        System.out.println("Entry #      Total Calories     Goal      Weight");
+        System.out.println("Entry #      Total Calories     Weight");
         for (int i = 0; i < days.size(); i++) {
             String weight = "";
             if (days.get(i).getWeight() != 0) {
                 weight = Double.toString(days.get(i).getWeight());
             }
-            System.out.println(i + "            " +
-                    days.get(i).totalCals() + space1(Integer.toString(days.get(i).totalCals())) +
-                    outcome(days.get(i)) + space2(outcome(days.get(i))) +
-                    weight);
+            System.out.println(i + "            "
+                    + days.get(i).totalCals() + space(Integer.toString(days.get(i).totalCals()))
+                    + weight);
         }
     }
 

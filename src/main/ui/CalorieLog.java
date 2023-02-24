@@ -48,8 +48,11 @@ public class CalorieLog {
     // EFFECTS: prints out correct amount of space between columns
     private String space(String s) {
         int length = 20 - s.length();
-        String space = " ";
-        return space.repeat(Math.max(0, length));
+        String tab = "";
+        for (int i = 0; i < length; i++) {
+            tab += " ";
+        }
+        return tab;
     }
 
 
