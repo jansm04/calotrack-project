@@ -1,9 +1,7 @@
 package ui;
 
 import model.Calculator;
-import model.CalorieLog;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {

@@ -1,8 +1,5 @@
 package ui;
 
-import model.Calculator;
-import model.CalorieLog;
-
 import java.util.ArrayList;
 import java.util.List;
 
