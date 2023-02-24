@@ -131,36 +131,4 @@ public class Calculator {
     public void setTime(int time) {
         this.time = time;
     }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public int getHeightFeet() {
-        return heightFeet;
-    }
-
-    public int getHeightInches() {
-        return heightInches;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public double getWeightGoal() {
-        return weightGoal;
-    }
-
-    public int getLevelOfActivity() {
-        return levelOfActivity;
-    }
-
-    public int getTime() {
-        return time;
-    }
 }
