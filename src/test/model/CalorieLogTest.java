@@ -132,4 +132,24 @@ public class CalorieLogTest {
         assertEquals("Chicken", log.getFoods().get(1));
         assertEquals(600, log.getCals().get(1));
     }
+
+    @Test
+    public void totalCalsTest() {
+        assertEquals(0, log.totalCals());
+        log.addFood("Pasta");
+        log.addNumOfCals(300);
+        log.addFood("Chicken");
+        log.addNumOfCals(600);
+        log.addFood("Apple");
+        log.addNumOfCals(100);
+        assertEquals(300 + 600 + 100, log.totalCals());
+        log.removeFoodAndCals(0);
+        assertEquals(600 + 100, log.totalCals());
+    }
+
+    @Test
+    public void setWeightTest() {
+        log.setWeight(153.2);
+        assertEquals(153.2, log.getWeight());
+    }
 }
