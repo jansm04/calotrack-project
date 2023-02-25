@@ -11,6 +11,7 @@ public class CalorieLog {
     List<String> foods;
     List<Integer> cals;
     double weight;
+
     // INVARIANT: the list of foods and the list of cals always have the same length, as the nth element
     //            in the list of calories is the number of calories contained by the nth element of the
     //            list of foods
@@ -62,8 +63,9 @@ public class CalorieLog {
         return sum;
     }
 
+    // EFFECTS: creates a new Date object with a day, month and year
     public void setDate(int day, String month, int year) {
-        date = new Date(day, month, year);
+        this.date = new Date(day, month, year);
     }
 
     public Date getDate() {
