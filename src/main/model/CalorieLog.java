@@ -1,4 +1,4 @@
-package ui;
+package model;
 
 import model.Date;
 
@@ -53,36 +53,6 @@ public class CalorieLog {
         }
     }
 
-    // EFFECTS: prints out correct amount of space between columns. NOTE: this method is just for phase 1, so the
-    //          table looks cleaner when printed in the console
-    private String space(String s) {
-        int length = 20 - s.length();
-        String tab = "";
-        for (int i = 0; i < length; i++) {
-            tab += " ";
-        }
-        return tab;
-    }
-
-
-    // EFFECTS: prints out the current log as a 3xn table, where n is the number of elements,
-    //          the first column shows the index number, the second column shows the food, and
-    //          the third column shows the calories. Below the table, the total calories for
-    //          day is included
-    public void viewLog() {
-        System.out.println("#       Food                Calories");
-        for (int i = 0; i < foods.size(); i++) {
-            System.out.println(i + "       " + foods.get(i) + space(foods.get(i)) + cals.get(i));
-        }
-        System.out.println("Total Cals: " + totalCals());
-        if (weight != 0) {
-            System.out.println("Weight: " + weight + " lbs.");
-        }
-        if (date != null) {
-            System.out.println("Date: " + date.getMonth() + " " + date.getDay() + ", " + date.getYear());
-        }
-    }
-
     // EFFECTS: returns sum of all calories in log
     public int totalCals() {
         int sum = 0;
@@ -100,12 +70,12 @@ public class CalorieLog {
         return date;
     }
 
-    public double getWeight() {
-        return weight;
-    }
-
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 
     public List<String> getFoods() {

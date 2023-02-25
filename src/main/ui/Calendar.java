@@ -1,6 +1,7 @@
 package ui;
 
 import model.Calculator;
+import model.CalorieLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +71,7 @@ public class Calendar {
             } else if (answer3 == 'v') {
                 viewCalendar();
             } else if (answer3 == 'i') {
+                viewCalendar();
                 System.out.println("Please enter the index of the log you would like to view:");
                 int index = scanner.nextInt();
                 viewLogInCalendar(index);
@@ -159,7 +161,7 @@ public class Calendar {
     // MODIFIES: log
     // EFFECTS: prompts user to remove food at specific index
     private void optionR() {
-        log.viewLog();
+        viewLog(log);
         System.out.println("Enter the index of the food you would like to remove: ");
         int index = scanner.nextInt();
         log.removeFoodAndCals(index);
@@ -187,7 +189,7 @@ public class Calendar {
 
     // EFFECTS: prints log as a 3xn table, where n is the number of foods in the list
     private void optionV() {
-        log.viewLog();
+        viewLog(log);
     }
 
     // EFFECTS: prints out next options in calendar
@@ -271,10 +273,35 @@ public class Calendar {
     public void viewLogInCalendar(int index) {
         for (int i = 0; i < days.size(); i++) {
             if (index == i) {
-                days.get(i).viewLog();
+                viewLog(days.get(i));
                 break;
             }
         }
+    }
+
+    // EFFECTS: prints out the current log as a 3xn table, where n is the number of elements,
+    //          the first column shows the index number, the second column shows the food, and
+    //          the third column shows the calories. Below the table, the total calories for
+    //          day is included
+    public void viewLog(CalorieLog log) {
+        System.out.println("#       Food                Calories");
+        for (int i = 0; i < log.getFoods().size(); i++) {
+            System.out.println(i + "       "
+                    + log.getFoods().get(i)
+                    + space(log.getFoods().get(i), 20)
+                    + log.getCals().get(i));
+        }
+        System.out.println("Total Cals: " + log.totalCals());
+        if (log.getWeight() != 0) {
+            System.out.println("Weight: " + log.getWeight() + " lbs.");
+        }
+        if (log.getDate() != null) {
+            System.out.println("Date: "
+                    + log.getDate().getMonth() + " "
+                    + log.getDate().getDay() + ", "
+                    + log.getDate().getYear());
+        }
+
     }
 
     public List<CalorieLog> getDays() {
