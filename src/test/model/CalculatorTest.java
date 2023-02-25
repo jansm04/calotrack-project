@@ -15,7 +15,7 @@ public class CalculatorTest {
         calc.setGender("male");
         calc.setAge(18);
         calc.setHeight(178);
-        calc.setWeight(150);
+        calc.setWeight(68);
         calc.setWeightGoal(20);
         calc.setLevelOfActivity(1);
         calc.setObjective("maintain");

@@ -101,7 +101,7 @@ public class Calendar {
     // MODIFIES: this
     // EFFECTS: gets the user's goal + details
     private void getGoal() {
-        System.out.println("What is your weight in lbs?");
+        System.out.println("What is your weight in kg?");
         double weight = scanner.nextDouble();
         calc.setWeight(weight);
 
@@ -293,7 +293,7 @@ public class Calendar {
         }
         System.out.println("Total Cals: " + log.totalCals());
         if (log.getWeight() != 0) {
-            System.out.println("Weight: " + log.getWeight() + " lbs.");
+            System.out.println("Weight: " + log.getWeight() + " kg");
         }
         if (log.getDate() != null) {
             System.out.println("Date: "

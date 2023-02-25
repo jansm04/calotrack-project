@@ -6,7 +6,7 @@ public class Calculator {
     String gender; // male or female
     int age;
     double height; // in cm
-    double weight; // in lbs
+    double weight; // in kg
     double weightGoal; // pounds desired to either gain or lose
     int levelOfActivity; // weekly level of activity from 1-5 (1 being the lowest)
     String objective; // gain, lose, or maintain
@@ -21,12 +21,11 @@ public class Calculator {
     //           weight > 0
     // EFFECTS: calculates BMR (Basal Metabolic Rate) based on gender (rounds to int)
     public int bmrCalculator() {
-        double weightInKg = weight * 0.453592; // converts weight from lbs to kg
         int bmr;
         if (gender.equals("male")) {
-            bmr = (int) (10 * weightInKg + 6.25 * height - 5 * age + 5); // calculates bmr for men
+            bmr = (int) (10 * weight + 6.25 * height - 5 * age + 5); // calculates bmr for men
         } else {
-            bmr = (int) (10 * weightInKg + 6.25 * height - 5 * age - 161); // calculates bmr for women
+            bmr = (int) (10 * weight + 6.25 * height - 5 * age - 161); // calculates bmr for women
         }
         return bmr;
     }
