@@ -41,6 +41,7 @@ public class CalorieLog {
         //       to eat two foods with the same number of cals in one day
     }
 
+    // REQUIRES: 0 <= index <= foods.size();
     // MODIFIES: this
     // EFFECTS: removes a food item and its corresponding number of calories from
     //          the list of foods using the index of the item in the list
