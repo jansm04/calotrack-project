@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Calculator class: inputs all user variables and calculates required daily caloric intake
-public class Calculator {
+public class Calculator implements Writable {
 
     String gender; // male or female
     int age;
@@ -11,6 +14,12 @@ public class Calculator {
     int levelOfActivity; // weekly level of activity from 1-5 (1 being the lowest)
     String objective; // gain, lose, or maintain
     int time; //in weeks
+
+    // EFFECTS: constructs a calculator
+    public Calculator() {
+        this.gender = "";
+        this.objective = "";
+    }
 
     // REQUIRES: gender is one of:
     //                  - "male"
@@ -82,6 +91,34 @@ public class Calculator {
         return objective;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public double getWeightGoal() {
+        return weightGoal;
+    }
+
+    public int getLevelOfActivity() {
+        return levelOfActivity;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -112,5 +149,19 @@ public class Calculator {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    @Override
+    public JSONObject toJSonObject() {
+        JSONObject json = new JSONObject();
+        json.put("gender", gender);
+        json.put("age", age);
+        json.put("height", height);
+        json.put("weight", weight);
+        json.put("weightGoal", weightGoal);
+        json.put("levelOfActivity", levelOfActivity);
+        json.put("objective", objective);
+        json.put("time", time);
+        return json;
     }
 }

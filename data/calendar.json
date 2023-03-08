@@ -1,0 +1,22 @@
+{
+    "calculator": {
+        "gender": "male",
+        "weightGoal": 20,
+        "levelOfActivity": 3,
+        "weight": 70,
+        "time": 12,
+        "age": 18,
+        "height": 175,
+        "objective": "gain"
+    },
+    "days": [{
+        "date": {
+            "month": "",
+            "year": 0,
+            "day": 0
+        },
+        "foods": [{"food": "apple"}],
+        "weight": 0,
+        "cals": [{"num": 100}]
+    }]
+}

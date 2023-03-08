@@ -2,18 +2,24 @@ package ui;
 
 import model.Calculator;
 import model.CalorieLog;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.JsonWriter;
+import persistence.Writable;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 // Calendar class: allows the user to add an arbitrary number of CalorieLogs to a 'calendar'
-public class Calendar {
+public class Calendar implements Writable {
 
     List<CalorieLog> days;
     Calculator calc;
     Scanner scanner;
     CalorieLog log;
+
 
     // EFFECTS: constructs a calendar with an empty list of entries
     public Calendar() {
@@ -57,34 +63,9 @@ public class Calendar {
         }
     }
 
-    // EFFECTS: prompt user to choose next option
-    public void options() {
-        while (true) {
-            chooseNextOptionCalendar();
-            char answer3 = scanner.next().charAt(0);
-            if (answer3 == 'c') {
-                getInfo();
-                getGoal();
-                getResults();
-            } else if (answer3 == 'd') {
-                logFoods();
-            } else if (answer3 == 'v') {
-                viewCalendar();
-            } else if (answer3 == 'i') {
-                viewCalendar();
-                System.out.println("Please enter the index of the log you would like to view:");
-                int index = scanner.nextInt();
-                viewLogInCalendar(index);
-            } else {
-                System.out.println("Goodbye!");
-                break;
-            }
-        }
-    }
-
     // MODIFIES: this
     // EFFECTS: gets the user's physical information
-    private void getInfo() {
+    public void getInfo() {
         System.out.println("What is your gender? (Enter either \"male\" or \"female\")");
         String gender = scanner.next();
         calc.setGender(gender);
@@ -100,7 +81,7 @@ public class Calendar {
 
     // MODIFIES: this
     // EFFECTS: gets the user's goal + details
-    private void getGoal() {
+    public void getGoal() {
         System.out.println("What is your weight in kg?");
         double weight = scanner.nextDouble();
         calc.setWeight(weight);
@@ -130,7 +111,7 @@ public class Calendar {
     }
 
     // EFFECTS: prints results of goal info and calculations
-    private void getResults() {
+    public void getResults() {
         System.out.println("Your daily caloric requirement is...");
         System.out.println(calc.totalDailyCaloricRequirement() + " cals!");
     }
@@ -190,17 +171,6 @@ public class Calendar {
     // EFFECTS: prints log as a 3xn table, where n is the number of foods in the list
     private void optionV() {
         viewLog(log);
-    }
-
-    // EFFECTS: prints out next options in calendar
-    private void chooseNextOptionCalendar() {
-        System.out.println();
-        System.out.println("Choose an option: "
-                + "\nc - calculate new daily caloric requirement"
-                + "\nd - new daily log"
-                + "\nv - view calendar"
-                + "\ni - view a past log"
-                + "\nq - quit program");
     }
 
 
@@ -295,7 +265,7 @@ public class Calendar {
         if (log.getWeight() != 0) {
             System.out.println("Weight: " + log.getWeight() + " kg");
         }
-        if (log.getDate() != null) {
+        if (log.getDate().getDay() != 0) {
             System.out.println("Date: "
                     + log.getDate().getMonth() + " "
                     + log.getDate().getDay() + ", "
@@ -306,5 +276,32 @@ public class Calendar {
 
     public List<CalorieLog> getDays() {
         return days;
+    }
+
+    public Calculator getCalculator() {
+        return calc;
+    }
+
+    @Override
+    public JSONObject toJSonObject() {
+        JSONObject json = new JSONObject();
+        json.put("days", daysToJson());
+        json.put("calculator", calc.toJSonObject());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray daysToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (CalorieLog calorieLog : days) {
+            jsonArray.put(calorieLog.toJSonObject());
+        }
+
+        return jsonArray;
+    }
+
+    public void setCalc(Calculator calc) {
+        this.calc = calc;
     }
 }

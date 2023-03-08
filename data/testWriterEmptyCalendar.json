@@ -1,0 +1,13 @@
+{
+    "calculator": {
+        "gender": "",
+        "weightGoal": 0,
+        "levelOfActivity": 0,
+        "weight": 0,
+        "time": 0,
+        "age": 0,
+        "height": 0,
+        "objective": ""
+    },
+    "days": []
+}

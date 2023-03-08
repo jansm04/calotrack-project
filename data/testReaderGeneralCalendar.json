@@ -1,0 +1,51 @@
+{
+    "days": [
+      { "foods": [
+        {"food": "apple"},
+        {"food": "banana"}
+        ],
+        "cals":
+        [
+          {"num": 100},
+          {"num": 150}
+        ],
+        "weight": "150",
+        "date":
+        { "day": 21,
+          "month": "April",
+          "year": 2023
+        }
+
+      },
+
+      { "foods":
+      [
+        {"food": "steak"},
+        {"food": "sandwich"}
+      ],
+        "cals":
+        [
+          {"num": 700},
+          {"num": 450}
+        ],
+        "weight": 151.2,
+        "date":
+        { "day": 22,
+          "month": "April",
+          "year": 2023
+        }
+      }
+
+    ],
+
+    "calculator": {
+        "gender": "male",
+        "age": 18,
+        "height": 175,
+        "weight": 150,
+        "weightGoal": 20,
+        "levelOfActivity": 3,
+        "objective": "gain",
+        "time": 12
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "days": [],
+    "calculator":
+    {
+      "gender": "male",
+      "age": 18,
+      "height": 175,
+      "weight": 150,
+      "weightGoal": 20,
+      "levelOfActivity": 3,
+      "objective": "gain",
+      "time": 12
+    }
+}

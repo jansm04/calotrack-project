@@ -1,12 +1,14 @@
 package model;
 
-import model.Date;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.LinkedList;
 import java.util.List;
 
 // CalorieLog class: handles the user's food and calories for each food item
-public class CalorieLog {
+public class CalorieLog implements Writable {
 
     List<String> foods;
     List<Integer> cals;
@@ -23,6 +25,7 @@ public class CalorieLog {
         this.foods = new LinkedList<>();
         this.cals = new LinkedList<>();
         this.weight = 0;
+        this.date = new Date(0, "", 0000);
     }
 
     // MODIFIES: this
@@ -87,6 +90,40 @@ public class CalorieLog {
 
     public List<Integer> getCals() {
         return cals;
+    }
+
+    @Override
+    public JSONObject toJSonObject() {
+        JSONObject json = new JSONObject();
+        json.put("foods", foodsToJson());
+        json.put("cals", calsToJson());
+        json.put("weight", weight);
+        json.put("date", date.toJSonObject());
+        return json;
+    }
+
+    // EFFECTS: put all foods in JsonArray
+    public JSONArray foodsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (String food : foods) {
+            JSONObject json = new JSONObject();
+            json.put("food", food);
+            jsonArray.put(json);
+        }
+        return jsonArray;
+    }
+
+    // EFFECTS: put all cals in JsonArray
+    public JSONArray calsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (int cal : cals) {
+            JSONObject json = new JSONObject();
+            json.put("num", cal);
+            jsonArray.put(json);
+        }
+        return jsonArray;
     }
 
 }

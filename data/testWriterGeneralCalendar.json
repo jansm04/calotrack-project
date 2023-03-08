@@ -1,0 +1,28 @@
+{
+    "calculator": {
+        "gender": "male",
+        "weightGoal": 20,
+        "levelOfActivity": 3,
+        "weight": 150,
+        "time": 12,
+        "age": 18,
+        "height": 175,
+        "objective": "gain"
+    },
+    "days": [{
+        "date": {
+            "month": "April",
+            "year": 2023,
+            "day": 21
+        },
+        "foods": [
+            {"food": "apple"},
+            {"food": "pasta"}
+        ],
+        "weight": 150,
+        "cals": [
+            {"num": 100},
+            {"num": 500}
+        ]
+    }]
+}
