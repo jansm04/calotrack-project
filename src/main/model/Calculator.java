@@ -151,6 +151,7 @@ public class Calculator implements Writable {
         this.time = time;
     }
 
+    // EFFECTS: converts a calc into a Json object
     @Override
     public JSONObject toJSonObject() {
         JSONObject json = new JSONObject();

@@ -92,6 +92,7 @@ public class CalorieLog implements Writable {
         return cals;
     }
 
+    // EFFECTS: converts a calorieLog into a Json object
     @Override
     public JSONObject toJSonObject() {
         JSONObject json = new JSONObject();

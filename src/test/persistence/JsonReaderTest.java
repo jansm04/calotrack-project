@@ -25,7 +25,7 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderEmptyWorkRoom() {
+    void testReaderEmptyCalendar() {
         JsonReader reader = new JsonReader("./data/testReaderEmptyCalendar.json");
         try {
             Calendar calendar = reader.read();
@@ -37,7 +37,7 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderGeneralWorkRoom() {
+    void testReaderGeneralCalendar() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralCalendar.json");
         try {
             Calendar calendar = reader.read();

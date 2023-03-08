@@ -17,7 +17,6 @@ public class JsonWriterTest extends JsonTest {
     @Test
     void fileInvalidTest() {
         try {
-            Calendar calendar = new Calendar();
             JsonWriter writer = new JsonWriter("./data/my\0invalidFileName.json");
             writer.open();
             fail("IOException was expected");

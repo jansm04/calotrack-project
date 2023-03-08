@@ -282,6 +282,7 @@ public class Calendar implements Writable {
         return calc;
     }
 
+    // EFFECTS: converts a calendar to a Json object
     @Override
     public JSONObject toJSonObject() {
         JSONObject json = new JSONObject();
@@ -290,7 +291,7 @@ public class Calendar implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns days in this calendar as a JSON array
     private JSONArray daysToJson() {
         JSONArray jsonArray = new JSONArray();
 

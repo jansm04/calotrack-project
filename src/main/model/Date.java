@@ -29,6 +29,7 @@ public class Date implements Writable {
         return year;
     }
 
+    // EFFECTS: converts a date into a Json object
     @Override
     public JSONObject toJSonObject() {
         JSONObject json = new JSONObject();
