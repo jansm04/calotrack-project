@@ -38,3 +38,5 @@ access all these things conveniently in one place.
 - As a user, I want to be able to log all the food and calories that I've consumed in a day and see my total calorie count for that day
 - As a user, I want to be able to add each day's data to a list of all the previous days and their data
 - As a user, I want to be able to view the data from previous days, so I can see how I've been progressing  
+- As a user, I want to have the option of saving my entire Calendar to file
+- As a user, I want to have the option to reload a previously saved Calendar and resume logging Calories to that specific Calendar 
