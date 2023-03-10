@@ -17,11 +17,10 @@ public class Main {
     private static Calendar calendar;
 
     public static void main(String[] args) throws IOException {
-
-
+        
         System.out.println("Welcome! Please choose an option: ");
         System.out.println("c - new calendar"
-                + "\nl - load last calendar");
+                + "\nl - load saved calendar");
         char answer = SCANNER.next().charAt(0);
         if (answer == 'c') {
             calendar = new Calendar();

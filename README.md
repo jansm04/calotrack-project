@@ -39,4 +39,8 @@ access all these things conveniently in one place.
 - As a user, I want to be able to add each day's data to a list of all the previous days and their data
 - As a user, I want to be able to view the data from previous days, so I can see how I've been progressing  
 - As a user, I want to have the option of saving my entire Calendar to file
-- As a user, I want to have the option to reload a previously saved Calendar and resume logging Calories to that specific Calendar 
+- As a user, I want to have the option to load a previously saved Calendar and resume logging calories to that specific Calendar 
+
+
+Data Persistence Model Based On
+https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo

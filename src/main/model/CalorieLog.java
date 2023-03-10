@@ -6,6 +6,7 @@ import persistence.Writable;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 // CalorieLog class: handles the user's food and calories for each food item
 public class CalorieLog implements Writable {
@@ -126,5 +127,4 @@ public class CalorieLog implements Writable {
         }
         return jsonArray;
     }
-
 }

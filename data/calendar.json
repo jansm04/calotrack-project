@@ -9,14 +9,52 @@
         "height": 175,
         "objective": "gain"
     },
-    "days": [{
-        "date": {
-            "month": "",
-            "year": 0,
-            "day": 0
+    "days": [
+        {
+            "date": {
+                "month": "",
+                "year": 0,
+                "day": 0
+            },
+            "foods": [{"food": "apple"}],
+            "weight": 0,
+            "cals": [{"num": 100}]
         },
-        "foods": [{"food": "apple"}],
-        "weight": 0,
-        "cals": [{"num": 100}]
-    }]
+        {
+            "date": {
+                "month": "March",
+                "year": 2023,
+                "day": 8
+            },
+            "foods": [
+                {"food": "banana"},
+                {"food": "sandwich"},
+                {"food": "steak"},
+                {"food": "pasta"}
+            ],
+            "weight": 71.2,
+            "cals": [
+                {"num": 100},
+                {"num": 400},
+                {"num": 860},
+                {"num": 870}
+            ]
+        },
+        {
+            "date": {
+                "month": "",
+                "year": 0,
+                "day": 0
+            },
+            "foods": [
+                {"food": "burger"},
+                {"food": "steak"}
+            ],
+            "weight": 0,
+            "cals": [
+                {"num": 1500},
+                {"num": 1600}
+            ]
+        }
+    ]
 }
