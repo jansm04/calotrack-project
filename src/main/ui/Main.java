@@ -17,13 +17,19 @@ public class Main {
     private static Calendar calendar;
 
     public static void main(String[] args) throws IOException {
-        
+
+        calendar = new Calendar();
+        calendar.openOptionsPanel();
+
+
+
+        /*
         System.out.println("Welcome! Please choose an option: ");
         System.out.println("c - new calendar"
                 + "\nl - load saved calendar");
         char answer = SCANNER.next().charAt(0);
         if (answer == 'c') {
-            calendar = new Calendar();
+
             calendar.calculateCals();
             System.out.println("Now that we have your daily caloric requirement, "
                     + "would you like to start keeping track of your calories? (Enter \"yes\" or \"no\")");
@@ -34,6 +40,7 @@ public class Main {
                 options();
             } else {
                 System.out.println("You've completed the introduction!");
+                options();
             }
         } else {
             calendar = READER.read();
@@ -86,6 +93,7 @@ public class Main {
         WRITER.write(calendar);
         WRITER.close();
         System.out.println("Your calendar has been saved!");
+    */
     }
 
 }

@@ -25,8 +25,7 @@ public class Calculator implements Writable {
     //                  - "male"
     //                  - "female"
     //           age > 0
-    //           heightFeet > 0
-    //           heightInches > 0
+    //           height > 0
     //           weight > 0
     // EFFECTS: calculates BMR (Basal Metabolic Rate) based on gender (rounds to int)
     public int bmrCalculator() {
@@ -63,7 +62,7 @@ public class Calculator implements Writable {
     // EFFECTS: calculates daily cals needed to be consumed/subtracted to reach weight goal
     private int differenceCalculator() {
         int days = time * 7; // converts time from weeks to days
-        double calsNeeded = weightGoal * 3500; // one pound of weight equates to roughly 3500 calories
+        double calsNeeded = weightGoal * 7700; // one kg of weight equates to roughly 3500 calories
         return (int) (calsNeeded / days); // divided cals (in weight) by number of days, and takes int approx.
     }
 

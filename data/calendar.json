@@ -1,9 +1,9 @@
 {
     "calculator": {
         "gender": "male",
-        "weightGoal": 20,
+        "weightGoal": 5,
         "levelOfActivity": 3,
-        "weight": 70,
+        "weight": 60,
         "time": 12,
         "age": 18,
         "height": 175,
@@ -22,38 +22,18 @@
         },
         {
             "date": {
-                "month": "March",
-                "year": 2023,
-                "day": 8
-            },
-            "foods": [
-                {"food": "banana"},
-                {"food": "sandwich"},
-                {"food": "steak"},
-                {"food": "pasta"}
-            ],
-            "weight": 71.2,
-            "cals": [
-                {"num": 100},
-                {"num": 400},
-                {"num": 860},
-                {"num": 870}
-            ]
-        },
-        {
-            "date": {
                 "month": "",
                 "year": 0,
                 "day": 0
             },
             "foods": [
-                {"food": "burger"},
+                {"food": "banana"},
                 {"food": "steak"}
             ],
             "weight": 0,
             "cals": [
-                {"num": 1500},
-                {"num": 1600}
+                {"num": 100},
+                {"num": 700}
             ]
         }
     ]
