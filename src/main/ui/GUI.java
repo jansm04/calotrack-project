@@ -899,7 +899,8 @@ public class GUI {
     // EFFECTS: adds result to calcPanel
     public void addResult() {
         if (calendar.getCalculator().totalDailyCaloricRequirement() > 0) {
-            result = new JLabel("Daily Caloric Requirement: " + calendar.getCalculator().totalDailyCaloricRequirement());
+            result = new JLabel("Daily Caloric Requirement: "
+                    + calendar.getCalculator().totalDailyCaloricRequirement());
         } else {
             result = new JLabel("Daily Caloric Requirement: ");
         }
