@@ -898,13 +898,14 @@ public class GUI {
     // MODIFIES: this
     // EFFECTS: adds result to calcPanel
     public void addResult() {
-        if (calendar.getCalculator().totalDailyCaloricRequirement() > 0) {
-            result = new JLabel("Daily Caloric Requirement: "
-                    + calendar.getCalculator().totalDailyCaloricRequirement());
-        } else {
-            result = new JLabel("Daily Caloric Requirement: ");
-        }
+        int total = calendar.getCalculator().totalDailyCaloricRequirement();
+        result = new JLabel("Daily Caloric Requirement: ");
         result.setBounds(500, 500, 400, 30);
+        if (total > 0) {
+            result.setText("Daily Caloric Requirement: "
+                    + calendar.getCalculator().totalDailyCaloricRequirement()
+                    + " Cals");
+        }
         calcPanel.add(result);
     }
 
@@ -1101,8 +1102,8 @@ public class GUI {
         enterSpecifics.setBounds(800, 300, 90, 30);
         enterSpecifics.setVisible(false);
         calcPanel.add(enterSpecifics);
-        calendar.setCalc(calc);
         enterSpecifics.addActionListener(e -> {
+            calendar.setCalc(calc);
             collectGoalAnswers();
             collectSpecificsAnswers();
             result.setText("Daily Caloric Requirement: "

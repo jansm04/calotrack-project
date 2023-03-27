@@ -1,13 +1,70 @@
 {
     "calculator": {
         "gender": "male",
-        "weightGoal": 20,
+        "weightGoal": 23,
         "levelOfActivity": 3,
-        "weight": 67,
-        "time": 12,
+        "weight": 70,
+        "time": 20,
         "age": 18,
         "height": 175,
         "objective": "gain"
     },
-    "days": []
+    "days": [
+        {
+            "date": {
+                "month": "",
+                "year": 0,
+                "day": 0
+            },
+            "foods": [{"food": "apple"}],
+            "weight": 0,
+            "cals": [{"num": 100}]
+        },
+        {
+            "date": {
+                "month": "",
+                "year": 0,
+                "day": 0
+            },
+            "foods": [{"food": "banana"}],
+            "weight": 0,
+            "cals": [{"num": 100}]
+        },
+        {
+            "date": {
+                "month": "",
+                "year": 0,
+                "day": 0
+            },
+            "foods": [
+                {"food": "pancakes"},
+                {"food": "cereal"},
+                {"food": "grilled cheese"},
+                {"food": "chicken"}
+            ],
+            "weight": 0,
+            "cals": [
+                {"num": 1200},
+                {"num": 300},
+                {"num": 480},
+                {"num": 700}
+            ]
+        },
+        {
+            "date": {
+                "month": "",
+                "year": 0,
+                "day": 0
+            },
+            "foods": [
+                {"food": "apple"},
+                {"food": "pasta"}
+            ],
+            "weight": 0,
+            "cals": [
+                {"num": 100},
+                {"num": 400}
+            ]
+        }
+    ]
 }
