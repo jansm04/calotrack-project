@@ -1,68 +1,13 @@
 {
     "calculator": {
-        "gender": "",
-        "weightGoal": 0,
-        "levelOfActivity": 0,
-        "weight": 0,
-        "time": 0,
-        "age": 0,
-        "height": 0,
-        "objective": ""
+        "gender": "male",
+        "weightGoal": 20,
+        "levelOfActivity": 3,
+        "weight": 67,
+        "time": 12,
+        "age": 18,
+        "height": 175,
+        "objective": "gain"
     },
-    "days": [
-        {
-            "date": {
-                "month": "April",
-                "year": 2004,
-                "day": 0
-            },
-            "foods": [{"food": "milk"}],
-            "weight": 0,
-            "cals": [{"num": 150}]
-        },
-        {
-            "date": {
-                "month": "April",
-                "year": 2004,
-                "day": 0
-            },
-            "foods": [
-                {"food": "pancakes"},
-                {"food": "oj"},
-                {"food": "sandwich"},
-                {"food": "milk"},
-                {"food": "chicken and rice"},
-                {"food": "pb and toast"}
-            ],
-            "weight": 67.3,
-            "cals": [
-                {"num": 500},
-                {"num": 100},
-                {"num": 700},
-                {"num": 150},
-                {"num": 700},
-                {"num": 940}
-            ]
-        },
-        {
-            "date": {
-                "month": "",
-                "year": 0,
-                "day": 0
-            },
-            "foods": [{"food": "pasta"}],
-            "weight": 0,
-            "cals": [{"num": 500}]
-        },
-        {
-            "date": {
-                "month": "",
-                "year": 0,
-                "day": 0
-            },
-            "foods": [{"food": "apple"}],
-            "weight": 0,
-            "cals": [{"num": 100}]
-        }
-    ]
+    "days": []
 }

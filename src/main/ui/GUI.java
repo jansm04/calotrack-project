@@ -1132,6 +1132,7 @@ public class GUI {
         returnToOptions.setBounds(930, 10, 60, 20);
         returnToOptions.addActionListener(e -> {
             openOptionsPanel();
+            calcPanel.removeAll();
         });
         calcPanel.add(returnToOptions);
     }
