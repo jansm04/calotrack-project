@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// Calendar class: allows the user to add an arbitrary number of CalorieLogs to a 'calendar'
+// GUI class: constructs the GUI of the application
 public class GUI {
 
     private static final String JSON_STORE = "./data/calendar.json";
@@ -165,6 +165,8 @@ public class GUI {
         jframe.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a JLabel of a DietKing logo
     public void dietKingLogo() {
         BufferedImage myPicture = null;
         try {
@@ -281,8 +283,6 @@ public class GUI {
     }
 
 
-
-
     // MODIFIES: this
     // EFFECTS: sets up the calculator JPanel
     public void openCalculatorPanel() {
@@ -327,6 +327,8 @@ public class GUI {
         jframe.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a JLabel of a smaller version of the DietKing logo
     public void addSmallDietKingLogo(JPanel panel) {
         BufferedImage myPicture = null;
         try {
@@ -1175,7 +1177,8 @@ public class GUI {
         loopThroughDays(0, 60, 60, 63, 63,  62, 200, 203, 59);
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: turns all CalorieLogs into boxes with summary
     public void loopThroughDays(int num, int rectX, int rectY, int labelX, int labelY,
                                 int buttonX, int buttonY, int removeX, int removeY) {
         for (int i = 0; i < calendar.getDays().size(); i++) {

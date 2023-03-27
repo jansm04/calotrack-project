@@ -9,6 +9,7 @@ import persistence.Writable;
 import java.util.ArrayList;
 import java.util.List;
 
+// Calendar class: allows the user to add an arbitrary number of CalorieLogs to a 'calendar'
 public class Calendar implements Writable {
 
     private Calculator calc;
