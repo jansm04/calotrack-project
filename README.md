@@ -44,3 +44,12 @@ access all these things conveniently in one place.
 
 Data Persistence Model Based On
 https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
+
+# Instructions for Grader
+
+- You can generate the first required action related to adding Xs to a Y by clicking the 'x' button in the top right corner of each day to remove a day from the calendar
+- You can generate the second required action related to adding Xs to a Y by clicking the 'View Log' button at the bottom of each day to view more details about a day in the calendar
+- You can locate my visual component at the home screen - it is the big "DietKing" logo (imported from a .png file)
+- You can save the state of my application by clicking the 'Save Calendar' button on the home screen
+- You can reload the state of my application by clicking the 'Load Calendar' button on the home screen

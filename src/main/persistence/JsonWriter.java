@@ -1,7 +1,7 @@
 package persistence;
 
+import model.Calendar;
 import org.json.JSONObject;
-import ui.Calendar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
