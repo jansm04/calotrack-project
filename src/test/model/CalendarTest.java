@@ -108,4 +108,28 @@ public class CalendarTest {
         assertFalse(calendar.getDays().contains(day1));
     }
 
+    @Test
+    public void removeNoEntryTest() {
+        assertEquals(0, calendar.getDays().size());
+        assertFalse(calendar.getDays().contains(day2));
+        assertFalse(calendar.getDays().contains(day1));
+        calendar.removeEntry(0);
+        assertEquals(0, calendar.getDays().size());
+        assertFalse(calendar.getDays().contains(day2));
+        assertFalse(calendar.getDays().contains(day1));
+    }
+
+    @Test
+    public void removeWrongIndexTest() {
+        calendar.addEntry(day1);
+        calendar.addEntry(day2);
+        assertEquals(2, calendar.getDays().size());
+        assertTrue(calendar.getDays().contains(day2));
+        assertTrue(calendar.getDays().contains(day1));
+        calendar.removeEntry(3);
+        assertEquals(2, calendar.getDays().size());
+        assertTrue(calendar.getDays().contains(day2));
+        assertTrue(calendar.getDays().contains(day1));
+    }
+
 }
