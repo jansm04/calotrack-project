@@ -321,6 +321,7 @@ public class GUI {
         logPanel.setVisible(true);
 
         jframe.add(logPanel);
+        addTotalCaloricRequirement();
         startIteration();
         addSmallDietKingLogo(logPanel);
 
@@ -740,6 +741,18 @@ public class GUI {
             logPanel.removeAll();
         });
         logPanel.add(finishLog);
+    }
+
+
+    public void addTotalCaloricRequirement() {
+        JLabel caloricReq = new JLabel("Goal: "
+                + calendar.getCalculator().totalDailyCaloricRequirement()
+                + " Cals");
+        caloricReq.setBounds(80, 580, 300, 25);
+        caloricReq.setBackground(Color.white);
+        if (calendar.getCalculator().totalDailyCaloricRequirement() > 0) {
+            logPanel.add(caloricReq);
+        }
     }
 
 

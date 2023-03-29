@@ -1,9 +1,9 @@
 {
     "calculator": {
         "gender": "male",
-        "weightGoal": 23,
+        "weightGoal": 12,
         "levelOfActivity": 3,
-        "weight": 70,
+        "weight": 67,
         "time": 20,
         "age": 18,
         "height": 175,
@@ -62,6 +62,70 @@
             ],
             "weight": 0,
             "cals": [
+                {"num": 100},
+                {"num": 400}
+            ]
+        },
+        {
+            "date": {
+                "month": "",
+                "year": 0,
+                "day": 0
+            },
+            "foods": [{"food": "apple"}],
+            "weight": 0,
+            "cals": [{"num": 100}]
+        },
+        {
+            "date": {
+                "month": "",
+                "year": 0,
+                "day": 0
+            },
+            "foods": [
+                {"food": "apple"},
+                {"food": "sandwich"}
+            ],
+            "weight": 67.5,
+            "cals": [
+                {"num": 100},
+                {"num": 300}
+            ]
+        },
+        {
+            "date": {
+                "month": "",
+                "year": 0,
+                "day": 0
+            },
+            "foods": [
+                {"food": "apple"},
+                {"food": "pizza"},
+                {"food": "burger"},
+                {"food": "cookie"}
+            ],
+            "weight": 0,
+            "cals": [
+                {"num": 100},
+                {"num": 600},
+                {"num": 700},
+                {"num": 100}
+            ]
+        },
+        {
+            "date": {
+                "month": "",
+                "year": 0,
+                "day": 0
+            },
+            "foods": [
+                {"food": "apple"},
+                {"food": "banana"},
+                {"food": "sandwich"}
+            ],
+            "weight": 0,
+            "cals": [
+                {"num": 100},
                 {"num": 100},
                 {"num": 400}
             ]
