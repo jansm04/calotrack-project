@@ -27,6 +27,9 @@ public class Calendar implements Writable {
     // EFFECTS: adds a CalorieLog to the list of CalorieLogs
     public void addEntry(CalorieLog log) {
         days.add(log);
+        EventLog.getInstance().logEvent(new Event("Added CalorieLog: Day "
+                + days.size()
+                + " (" + log.totalCals() + " Cals)"));
     }
 
     // REQUIRES: 0 <= index <= days.size()
@@ -35,6 +38,9 @@ public class Calendar implements Writable {
     public void removeEntry(int index) {
         for (int i = 0; i < days.size(); i++) {
             if (i == index) {
+                EventLog.getInstance().logEvent(new Event("Removed CalorieLog: Day "
+                        + (i + 1)
+                        + " (" + days.get(i).totalCals() + " Cals)"));
                 days.remove(i);
                 break;
             }

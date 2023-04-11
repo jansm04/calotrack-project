@@ -3,33 +3,32 @@ package ui;
 import model.Calculator;
 import model.CalorieLog;
 import model.Calendar;
+import model.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 // GUI class: constructs the GUI of the application
-public class GUI {
+public class GUI extends JFrame {
 
     private static final String JSON_STORE = "./data/calendar.json";
     private static final JsonReader READER = new JsonReader(JSON_STORE);
     private static final JsonWriter WRITER = new JsonWriter(JSON_STORE);
 
-
-    private final JFrame jframe;
-
     Calendar calendar;
     Calculator calc;
     CalorieLog log;
+    LogPrinter logPrinter;
 
     JPanel calcPanel;
     JPanel optionsPanel;
@@ -125,22 +124,22 @@ public class GUI {
     public GUI() {
         this.calendar = new Calendar();
         this.calc = new Calculator();
-        this.jframe = new JFrame();
         this.calcPanel = new JPanel();
         this.optionsPanel = new JPanel();
         this.logPanel = new JPanel();
         this.calendarPanel = new JPanel();
+        this.logPrinter = new LogPrinter();
         setupJFrame();
     }
 
     // MODIFIES: this
     // EFFECTS: sets up the JFrame object
     public void setupJFrame() {
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jframe.setTitle("DietKing");
-        jframe.setBounds(150, 50, 1000, 700);
-        jframe.pack();
-        jframe.setSize(1000, 700);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("DietKing");
+        setBounds(150, 50, 1000, 700);
+        pack();
+        setSize(1000, 700);
     }
 
     // MODIFIES: this
@@ -155,14 +154,14 @@ public class GUI {
         calendarPanel.setVisible(false);
         optionsPanel.setVisible(true);
 
-        jframe.add(optionsPanel);
+        add(optionsPanel);
         loadedText();
         saveText();
         addButtons();
 
         dietKingLogo();
 
-        jframe.setVisible(true);
+        setVisible(true);
     }
 
     // MODIFIES: this
@@ -188,6 +187,7 @@ public class GUI {
         viewCalendarButton();
         saveCalendarButton();
         loadCalendarButton();
+        quitButton();
     }
 
     // MODIFIES: this
@@ -208,7 +208,7 @@ public class GUI {
         newDailyLog = new JButton("New Daily Log");
         newDailyLog.setBounds(250, 440, 500, 35);
         newDailyLog.addActionListener(e -> {
-            openLogPanel();
+            openCalorieLogPanel();
             optionsPanel.removeAll();
         });
         optionsPanel.add(newDailyLog);
@@ -263,6 +263,19 @@ public class GUI {
         optionsPanel.add(saveCalendar);
     }
 
+    // MODIFIES: this
+    // EFFECTS: quits the program
+    public void quitButton() {
+        JButton quitButton = new JButton("Quit");
+        quitButton.setBounds(920, 20, 70, 30);
+        quitButton.addActionListener(e -> {
+            logPrinter.printLog(EventLog.getInstance());
+            dispose();
+        });
+        optionsPanel.add(quitButton);
+
+    }
+
 
     // MODIFIES: this
     // EFFECTS: JLabel to confirm saved calendar
@@ -284,51 +297,6 @@ public class GUI {
 
 
     // MODIFIES: this
-    // EFFECTS: sets up the calculator JPanel
-    public void openCalculatorPanel() {
-        calcPanel.setBorder(BorderFactory.createEmptyBorder());
-        calcPanel.setBackground(Color.getHSBColor(0.55f, 0.7f, 0.7f));
-        calcPanel.setLayout(null);
-
-        logPanel.setVisible(false);
-        calendarPanel.setVisible(false);
-        optionsPanel.setVisible(false);
-        calcPanel.setVisible(true);
-        jframe.add(calcPanel);
-
-        addResult();
-        getInfo();
-        enterButton1();
-        enterButton2();
-        returnButton();
-        shapeRectangleForCalculator();
-
-        jframe.setVisible(true);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets up the daily log tracker
-    public void openLogPanel() {
-        logPanel.setBorder(BorderFactory.createEmptyBorder());
-        logPanel.setBackground(Color.getHSBColor(0.55f, 0.7f, 0.7f));
-        logPanel.setLayout(null);
-
-        log = new CalorieLog();
-
-        calcPanel.setVisible(false);
-        calendarPanel.setVisible(false);
-        optionsPanel.setVisible(false);
-        logPanel.setVisible(true);
-
-        jframe.add(logPanel);
-        addTotalCaloricRequirement();
-        startIteration();
-        addSmallDietKingLogo(logPanel);
-
-        jframe.setVisible(true);
-    }
-
-    // MODIFIES: this
     // EFFECTS: adds a JLabel of a smaller version of the DietKing logo
     public void addSmallDietKingLogo(JPanel panel) {
         BufferedImage myPicture = null;
@@ -340,6 +308,301 @@ public class GUI {
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         picLabel.setBounds(660, 150, 300, 290);
         panel.add(picLabel);
+    }
+
+
+
+    // MODIFIES: this
+    // EFFECTS: sets up the calculator JPanel
+    public void openCalculatorPanel() {
+        calcPanel.setBorder(BorderFactory.createEmptyBorder());
+        calcPanel.setBackground(Color.getHSBColor(0.55f, 0.7f, 0.7f));
+        calcPanel.setLayout(null);
+
+        logPanel.setVisible(false);
+        calendarPanel.setVisible(false);
+        optionsPanel.setVisible(false);
+        calcPanel.setVisible(true);
+        add(calcPanel);
+
+        addResult();
+        getInfo();
+        enterButton1();
+        enterButton2();
+        returnButton();
+        shapeRectangleForCalculator();
+
+        setVisible(true);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds result to calcPanel
+    public void addResult() {
+        int total = calendar.getCalculator().totalDailyCaloricRequirement();
+        result = new JLabel("Daily Caloric Requirement: ");
+        result.setBounds(500, 500, 400, 30);
+        if (total > 0) {
+            result.setText("Daily Caloric Requirement: "
+                    + calendar.getCalculator().totalDailyCaloricRequirement()
+                    + " Cals");
+        }
+        calcPanel.add(result);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gets the user's physical information
+    public void getInfo() {
+        genderPrompt();
+        agePrompt();
+        heightPrompt();
+        weightPrompt();
+        loaPrompt();
+        objectivePrompt();
+        weightGoalPrompt();
+        timePrompt();
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: prompts user to enter gender
+    public void genderPrompt() {
+        JLabel genderQuestion = new JLabel("What is your gender? (Enter either \"male\" or \"female\")");
+        genderQuestion.setBounds(50, 50, 400, 30);
+        calcPanel.add(genderQuestion);
+
+        genderAnswer = new JTextField(20);
+        genderAnswer.setBounds(50, 80, 200, 30);
+        calcPanel.add(genderAnswer);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prompts user to enter age
+    public void agePrompt() {
+        JLabel ageQuestion = new JLabel("What is your age?");
+        ageQuestion.setBounds(50, 120, 400, 30);
+        calcPanel.add(ageQuestion);
+
+        ageAnswer = new JTextField(20);
+        ageAnswer.setBounds(50, 150, 200, 30);
+        calcPanel.add(ageAnswer);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prompts user to enter height
+    public void heightPrompt() {
+        JLabel heightQuestion = new JLabel("What is your height (in cm)?");
+        heightQuestion.setBounds(50, 190, 400, 30);
+        calcPanel.add(heightQuestion);
+
+        heightAnswer = new JTextField(20);
+        heightAnswer.setBounds(50, 220, 200, 30);
+        calcPanel.add(heightAnswer);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prompts user to enter weight
+    public void weightPrompt() {
+        JLabel weightQuestion = new JLabel("What is your weight (in kg)?");
+        weightQuestion.setBounds(50, 260, 400, 30);
+        calcPanel.add(weightQuestion);
+
+        weightAnswer = new JTextField(20);
+        weightAnswer.setBounds(50, 290, 200, 30);
+        calcPanel.add(weightAnswer);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prompts user to enter levelOfActivity
+    public void loaPrompt() {
+        JLabel loaQuestion1 = new JLabel("What is your weekly level of activity?");
+        JLabel loaQuestion2 = new JLabel("(Enter the corresponding number from 1-5)");
+        JLabel loaQuestion3 = new JLabel("1 - None (Exercise 0 times a week)");
+        JLabel loaQuestion4 = new JLabel("2 - Light (Exercise 1-2 times a week)");
+        JLabel loaQuestion5 = new JLabel("3 - Moderate (Exercise 3-5 times a week)");
+        JLabel loaQuestion6 = new JLabel("4 - Hard (Exercise 6-7 times a week)");
+        JLabel loaQuestion7 = new JLabel("5 - Extreme (Exercise over 7 times a week)");
+        loaQuestion1.setBounds(50, 330, 400, 20);
+        loaQuestion2.setBounds(50, 350, 400, 20);
+        loaQuestion3.setBounds(70, 370, 400, 20);
+        loaQuestion4.setBounds(70, 390, 400, 20);
+        loaQuestion5.setBounds(70, 410, 400, 20);
+        loaQuestion6.setBounds(70, 430, 400, 20);
+        loaQuestion7.setBounds(70, 450, 400, 20);
+        calcPanel.add(loaQuestion1);
+        calcPanel.add(loaQuestion2);
+        calcPanel.add(loaQuestion3);
+        calcPanel.add(loaQuestion4);
+        calcPanel.add(loaQuestion5);
+        calcPanel.add(loaQuestion6);
+        calcPanel.add(loaQuestion7);
+        addLoaAnswer();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds loaAnswer to calcPanel
+    public void addLoaAnswer() {
+        loaAnswer = new JTextField(20);
+        loaAnswer.setBounds(50, 480, 200, 30);
+        calcPanel.add(loaAnswer);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prompts user to enter objective
+    public void objectivePrompt() {
+        JLabel objectiveQuestion1 = new JLabel("Would you like to gain, lose or maintain your current weight?");
+        JLabel objectiveQuestion2 = new JLabel("(Enter either \"gain\", \"lose\" or \"maintain\")");
+        objectiveQuestion1.setBounds(500, 50, 400, 20);
+        objectiveQuestion2.setBounds(500, 70, 400, 20);
+        calcPanel.add(objectiveQuestion1);
+        calcPanel.add(objectiveQuestion2);
+
+        objectiveAnswer = new JTextField(20);
+        objectiveAnswer.setBounds(500, 100, 200, 30);
+        calcPanel.add(objectiveAnswer);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prompts user to enter weightGoal
+    public void weightGoalPrompt() {
+        weightGoalQuestion = new JLabel("How much weight would you like to gain/lose? (In kg)");
+        weightGoalQuestion.setBounds(500, 160, 400, 30);
+        weightGoalQuestion.setVisible(false);
+        calcPanel.add(weightGoalQuestion);
+
+        weightGoalAnswer = new JTextField(20);
+        weightGoalAnswer.setBounds(500, 190, 200, 30);
+        weightGoalAnswer.setVisible(false);
+        calcPanel.add(weightGoalAnswer);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prompts user to enter time
+    public void timePrompt() {
+        timeQuestion = new JLabel("In how many weeks would you like to achieve this goal?");
+        timeQuestion.setBounds(500, 230, 400, 30);
+        timeQuestion.setVisible(false);
+        calcPanel.add(timeQuestion);
+
+        timeAnswer = new JTextField(20);
+        timeAnswer.setBounds(500, 260, 200, 30);
+        timeAnswer.setVisible(false);
+        calcPanel.add(timeAnswer);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets up the first "enter" button
+    public void enterButton1() {
+        enterObjective = new JButton("Enter");
+        enterObjective.setBounds(800, 80, 90, 30);
+        calcPanel.add(enterObjective);
+        enterObjective.addActionListener(e -> {
+            collectGoalAnswers();
+            if (!objective.equals("maintain")) {
+                weightGoalQuestion.setVisible(true);
+                weightGoalAnswer.setVisible(true);
+                timeQuestion.setVisible(true);
+                timeAnswer.setVisible(true);
+                enterSpecifics.setVisible(true);
+            } else {
+                result.setText("Daily Caloric Requirement: " + calc.totalDailyCaloricRequirement() + " Cals");
+            }
+        });
+    }
+
+    // MODIFIES: this
+    // EFFECTS: collect all user answers for goal
+    public void collectGoalAnswers() {
+        gender = genderAnswer.getText();
+        calc.setGender(gender);
+        age = Integer.parseInt(ageAnswer.getText());
+        calc.setAge(age);
+        height = Integer.parseInt(heightAnswer.getText());
+        calc.setHeight(height);
+        weight = Integer.parseInt(weightAnswer.getText());
+        calc.setWeight(weight);
+        levelOfActivity = Integer.parseInt(loaAnswer.getText());
+        calc.setLevelOfActivity(levelOfActivity);
+        objective = objectiveAnswer.getText();
+        calc.setObjective(objective);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: collect all user answers for specifics
+    public void collectSpecificsAnswers() {
+        weightGoal = Integer.parseInt(weightGoalAnswer.getText());
+        calc.setWeightGoal(weightGoal);
+        time = Integer.parseInt(timeAnswer.getText());
+        calc.setTime(time);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets up the second "enter" button
+    public void enterButton2() {
+        enterSpecifics = new JButton("Save");
+        enterSpecifics.setBounds(800, 300, 90, 30);
+        enterSpecifics.setVisible(false);
+        calcPanel.add(enterSpecifics);
+        enterSpecifics.addActionListener(e -> {
+            calendar.setCalc(calc);
+            collectGoalAnswers();
+            collectSpecificsAnswers();
+            result.setText("Daily Caloric Requirement: "
+                    + calendar.getCalculator().totalDailyCaloricRequirement()
+                    + " Cals");
+        });
+
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds a rectangle background to list of entries
+    public void shapeRectangleForCalculator() {
+        JLabel rectangle = new JLabel();
+        rectangle.setBounds(40, 40, 920, 586);
+        rectangle.setBackground(Color.getHSBColor(0.55f, 0.7f, 0.9f));
+        rectangle.setOpaque(true);
+        rectangle.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(0.4f, 0.4f, 0.35f), 2));
+        rectangle.setForeground(Color.white);
+        calcPanel.add(rectangle);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets up a return button that returns user to optionsPanel
+    public void returnButton() {
+        JButton returnToOptions = new JButton("Return");
+        returnToOptions.setBounds(930, 10, 60, 20);
+        returnToOptions.addActionListener(e -> {
+            openOptionsPanel();
+            calcPanel.removeAll();
+        });
+        calcPanel.add(returnToOptions);
+    }
+
+
+
+
+
+
+    // MODIFIES: this
+    // EFFECTS: sets up the daily log tracker
+    public void openCalorieLogPanel() {
+        logPanel.setBorder(BorderFactory.createEmptyBorder());
+        logPanel.setBackground(Color.getHSBColor(0.55f, 0.7f, 0.7f));
+        logPanel.setLayout(null);
+
+        log = new CalorieLog();
+
+        calcPanel.setVisible(false);
+        calendarPanel.setVisible(false);
+        optionsPanel.setVisible(false);
+        logPanel.setVisible(true);
+
+        add(logPanel);
+        addTotalCaloricRequirement();
+        startIteration();
+        addSmallDietKingLogo(logPanel);
+
+        setVisible(true);
     }
 
     // MODIFIES: this
@@ -743,7 +1006,8 @@ public class GUI {
         logPanel.add(finishLog);
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: adds a total caloric requirement to logPanel
     public void addTotalCaloricRequirement() {
         JLabel caloricReq = new JLabel("Goal: "
                 + calendar.getCalculator().totalDailyCaloricRequirement()
@@ -907,253 +1171,6 @@ public class GUI {
         logPanel.add(returnToOptions);
     }
 
-
-    // MODIFIES: this
-    // EFFECTS: adds result to calcPanel
-    public void addResult() {
-        int total = calendar.getCalculator().totalDailyCaloricRequirement();
-        result = new JLabel("Daily Caloric Requirement: ");
-        result.setBounds(500, 500, 400, 30);
-        if (total > 0) {
-            result.setText("Daily Caloric Requirement: "
-                    + calendar.getCalculator().totalDailyCaloricRequirement()
-                    + " Cals");
-        }
-        calcPanel.add(result);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: gets the user's physical information
-    public void getInfo() {
-        genderPrompt();
-        agePrompt();
-        heightPrompt();
-        weightPrompt();
-        loaPrompt();
-        objectivePrompt();
-        weightGoalPrompt();
-        timePrompt();
-    }
-
-
-    // MODIFIES: this
-    // EFFECTS: prompts user to enter gender
-    public void genderPrompt() {
-        JLabel genderQuestion = new JLabel("What is your gender? (Enter either \"male\" or \"female\")");
-        genderQuestion.setBounds(50, 50, 400, 30);
-        calcPanel.add(genderQuestion);
-
-        genderAnswer = new JTextField(20);
-        genderAnswer.setBounds(50, 80, 200, 30);
-        calcPanel.add(genderAnswer);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: prompts user to enter age
-    public void agePrompt() {
-        JLabel ageQuestion = new JLabel("What is your age?");
-        ageQuestion.setBounds(50, 120, 400, 30);
-        calcPanel.add(ageQuestion);
-
-        ageAnswer = new JTextField(20);
-        ageAnswer.setBounds(50, 150, 200, 30);
-        calcPanel.add(ageAnswer);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: prompts user to enter height
-    public void heightPrompt() {
-        JLabel heightQuestion = new JLabel("What is your height (in cm)?");
-        heightQuestion.setBounds(50, 190, 400, 30);
-        calcPanel.add(heightQuestion);
-
-        heightAnswer = new JTextField(20);
-        heightAnswer.setBounds(50, 220, 200, 30);
-        calcPanel.add(heightAnswer);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: prompts user to enter weight
-    public void weightPrompt() {
-        JLabel weightQuestion = new JLabel("What is your weight (in kg)?");
-        weightQuestion.setBounds(50, 260, 400, 30);
-        calcPanel.add(weightQuestion);
-
-        weightAnswer = new JTextField(20);
-        weightAnswer.setBounds(50, 290, 200, 30);
-        calcPanel.add(weightAnswer);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: prompts user to enter levelOfActivity
-    public void loaPrompt() {
-        JLabel loaQuestion1 = new JLabel("What is your weekly level of activity?");
-        JLabel loaQuestion2 = new JLabel("(Enter the corresponding number from 1-5)");
-        JLabel loaQuestion3 = new JLabel("1 - None (Exercise 0 times a week)");
-        JLabel loaQuestion4 = new JLabel("2 - Light (Exercise 1-2 times a week)");
-        JLabel loaQuestion5 = new JLabel("3 - Moderate (Exercise 3-5 times a week)");
-        JLabel loaQuestion6 = new JLabel("4 - Hard (Exercise 6-7 times a week)");
-        JLabel loaQuestion7 = new JLabel("5 - Extreme (Exercise over 7 times a week)");
-        loaQuestion1.setBounds(50, 330, 400, 20);
-        loaQuestion2.setBounds(50, 350, 400, 20);
-        loaQuestion3.setBounds(70, 370, 400, 20);
-        loaQuestion4.setBounds(70, 390, 400, 20);
-        loaQuestion5.setBounds(70, 410, 400, 20);
-        loaQuestion6.setBounds(70, 430, 400, 20);
-        loaQuestion7.setBounds(70, 450, 400, 20);
-        calcPanel.add(loaQuestion1);
-        calcPanel.add(loaQuestion2);
-        calcPanel.add(loaQuestion3);
-        calcPanel.add(loaQuestion4);
-        calcPanel.add(loaQuestion5);
-        calcPanel.add(loaQuestion6);
-        calcPanel.add(loaQuestion7);
-        addLoaAnswer();
-    }
-
-    // MODIFIES: this
-    // EFFECTS: adds loaAnswer to calcPanel
-    public void addLoaAnswer() {
-        loaAnswer = new JTextField(20);
-        loaAnswer.setBounds(50, 480, 200, 30);
-        calcPanel.add(loaAnswer);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: prompts user to enter objective
-    public void objectivePrompt() {
-        JLabel objectiveQuestion1 = new JLabel("Would you like to gain, lose or maintain your current weight?");
-        JLabel objectiveQuestion2 = new JLabel("(Enter either \"gain\", \"lose\" or \"maintain\")");
-        objectiveQuestion1.setBounds(500, 50, 400, 20);
-        objectiveQuestion2.setBounds(500, 70, 400, 20);
-        calcPanel.add(objectiveQuestion1);
-        calcPanel.add(objectiveQuestion2);
-
-        objectiveAnswer = new JTextField(20);
-        objectiveAnswer.setBounds(500, 100, 200, 30);
-        calcPanel.add(objectiveAnswer);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: prompts user to enter weightGoal
-    public void weightGoalPrompt() {
-        weightGoalQuestion = new JLabel("How much weight would you like to gain/lose? (In kg)");
-        weightGoalQuestion.setBounds(500, 160, 400, 30);
-        weightGoalQuestion.setVisible(false);
-        calcPanel.add(weightGoalQuestion);
-
-        weightGoalAnswer = new JTextField(20);
-        weightGoalAnswer.setBounds(500, 190, 200, 30);
-        weightGoalAnswer.setVisible(false);
-        calcPanel.add(weightGoalAnswer);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: prompts user to enter time
-    public void timePrompt() {
-        timeQuestion = new JLabel("In how many weeks would you like to achieve this goal?");
-        timeQuestion.setBounds(500, 230, 400, 30);
-        timeQuestion.setVisible(false);
-        calcPanel.add(timeQuestion);
-
-        timeAnswer = new JTextField(20);
-        timeAnswer.setBounds(500, 260, 200, 30);
-        timeAnswer.setVisible(false);
-        calcPanel.add(timeAnswer);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets up the first "enter" button
-    public void enterButton1() {
-        enterObjective = new JButton("Enter");
-        enterObjective.setBounds(800, 80, 90, 30);
-        calcPanel.add(enterObjective);
-        enterObjective.addActionListener(e -> {
-            collectGoalAnswers();
-            if (!objective.equals("maintain")) {
-                weightGoalQuestion.setVisible(true);
-                weightGoalAnswer.setVisible(true);
-                timeQuestion.setVisible(true);
-                timeAnswer.setVisible(true);
-                enterSpecifics.setVisible(true);
-            } else {
-                result.setText("Daily Caloric Requirement: " + calc.totalDailyCaloricRequirement() + " Cals");
-            }
-        });
-    }
-
-    // MODIFIES: this
-    // EFFECTS: collect all user answers for goal
-    public void collectGoalAnswers() {
-        gender = genderAnswer.getText();
-        calc.setGender(gender);
-        age = Integer.parseInt(ageAnswer.getText());
-        calc.setAge(age);
-        height = Integer.parseInt(heightAnswer.getText());
-        calc.setHeight(height);
-        weight = Integer.parseInt(weightAnswer.getText());
-        calc.setWeight(weight);
-        levelOfActivity = Integer.parseInt(loaAnswer.getText());
-        calc.setLevelOfActivity(levelOfActivity);
-        objective = objectiveAnswer.getText();
-        calc.setObjective(objective);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: collect all user answers for specifics
-    public void collectSpecificsAnswers() {
-        weightGoal = Integer.parseInt(weightGoalAnswer.getText());
-        calc.setWeightGoal(weightGoal);
-        time = Integer.parseInt(timeAnswer.getText());
-        calc.setTime(time);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets up the second "enter" button
-    public void enterButton2() {
-        enterSpecifics = new JButton("Save");
-        enterSpecifics.setBounds(800, 300, 90, 30);
-        enterSpecifics.setVisible(false);
-        calcPanel.add(enterSpecifics);
-        enterSpecifics.addActionListener(e -> {
-            calendar.setCalc(calc);
-            collectGoalAnswers();
-            collectSpecificsAnswers();
-            result.setText("Daily Caloric Requirement: "
-                    + calendar.getCalculator().totalDailyCaloricRequirement()
-                    + " Cals");
-        });
-
-
-    }
-
-    // MODIFIES: this
-    // EFFECTS: adds a rectangle background to list of entries
-    public void shapeRectangleForCalculator() {
-        JLabel rectangle = new JLabel();
-        rectangle.setBounds(40, 40, 920, 586);
-        rectangle.setBackground(Color.getHSBColor(0.55f, 0.7f, 0.9f));
-        rectangle.setOpaque(true);
-        rectangle.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(0.4f, 0.4f, 0.35f), 2));
-        rectangle.setForeground(Color.white);
-        calcPanel.add(rectangle);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets up a return button that returns user to optionsPanel
-    public void returnButton() {
-        JButton returnToOptions = new JButton("Return");
-        returnToOptions.setBounds(930, 10, 60, 20);
-        returnToOptions.addActionListener(e -> {
-            openOptionsPanel();
-            calcPanel.removeAll();
-        });
-        calcPanel.add(returnToOptions);
-    }
-
-
-
-
     // MODIFIES: this
     // EFFECTS: sets up the calendar panel
     public void openCalendarPanel() {
@@ -1167,11 +1184,11 @@ public class GUI {
         calendarPanel.setVisible(true);
 
 
-        jframe.add(calendarPanel);
+        add(calendarPanel);
         returnButtonForCalendar();
         dayEntries();
         shapeRectangleForCalendar();
-        jframe.setVisible(true);
+        setVisible(true);
     }
 
     // MODIFIES: this
@@ -1305,8 +1322,8 @@ public class GUI {
         calendarPanel.add(returnToOptions);
     }
 
-    // MODIFIES: this
-    // EFFECTS: creates a new JPanel to view past CalorieLog
+
+
     public void openViewLogPanel(CalorieLog logToView) {
         viewLogPanel = new JPanel();
         viewLogPanel.setBorder(BorderFactory.createEmptyBorder());
@@ -1318,7 +1335,7 @@ public class GUI {
         optionsPanel.setVisible(false);
         calendarPanel.setVisible(false);
 
-        jframe.add(viewLogPanel);
+        add(viewLogPanel);
 
         viewEntries(logToView);
         createWeightLabelForView(logToView);
@@ -1327,8 +1344,11 @@ public class GUI {
         returnButtonForViewLogPanel();
         addSmallDietKingLogo(viewLogPanel);
 
-        jframe.setVisible(true);
+        setVisible(true);
     }
+
+
+
 
     // MODIFIES: this
     // EFFECTS: prints out CalorieLog on viewLogPanel
@@ -1452,7 +1472,7 @@ public class GUI {
         returnToOptions.setBounds(930, 10, 60, 20);
         returnToOptions.addActionListener(e -> {
             openCalendarPanel();
-            jframe.remove(viewLogPanel);
+            remove(viewLogPanel);
         });
         viewLogPanel.add(returnToOptions);
     }
