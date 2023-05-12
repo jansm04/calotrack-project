@@ -15,8 +15,14 @@ public class Calculator implements Writable {
     String objective; // gain, lose, or maintain
     int time; //in weeks
 
+    private static final Calculator calculator = new Calculator();
+
+    public static Calculator getInstance() {
+        return calculator;
+    }
+
     // EFFECTS: constructs a calculator
-    public Calculator() {
+    private Calculator() {
         this.gender = "";
         this.objective = "";
     }

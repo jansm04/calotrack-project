@@ -10,8 +10,8 @@ public class Event {
 
 
     private static final int HASH_CONSTANT = 13;
-    private Date dateLogged;
-    private String description;
+    private final Date dateLogged;
+    private final String description;
 	
 	/**
 	 * Creates an event with the given description
@@ -19,7 +19,7 @@ public class Event {
 	 * @param description  a description of the event
 	 */
     public Event(String description) {
-        dateLogged = Calendar.getInstance().getTime();
+        this.dateLogged = Calendar.getInstance().getTime();
         this.description = description;
     }
 	
@@ -31,10 +31,6 @@ public class Event {
         return dateLogged;
     }
 	
-	/**
-	 * Gets the description of this event.
-	 * @return  the description of the event
-	 */
     public String getDescription() {
         return description;
     }

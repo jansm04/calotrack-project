@@ -5,7 +5,6 @@ import model.Calendar;
 import model.CalorieLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import ui.GUI;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -42,7 +41,7 @@ public class JsonReader {
 
     // EFFECTS: parses calendar from JSON object and returns it
     private Calendar parseCalendar(JSONObject jsonObject) {
-        Calendar calendar = new Calendar();
+        Calendar calendar = Calendar.getInstance();
         JSONObject jsonCalc = (JSONObject) jsonObject.get("calculator");
         addCalculator(calendar, jsonCalc);
         addCalorieLogs(calendar, jsonObject);
@@ -89,7 +88,7 @@ public class JsonReader {
     // MODIFIES: calendar
     // EFFECTS: parses date from JSON object and adds it to calorieLog
     private void addCalculator(Calendar calendar, JSONObject jsonObject) {
-        Calculator calc = new Calculator();
+        Calculator calc = Calculator.getInstance();
         String gender = jsonObject.getString("gender");
         int age = jsonObject.getInt("age");
         double height = jsonObject.getDouble("height");
@@ -106,7 +105,6 @@ public class JsonReader {
         calc.setLevelOfActivity(levelOfActivity);
         calc.setObjective(objective);
         calc.setTime(time);
-        calendar.setCalc(calc);
     }
 
 

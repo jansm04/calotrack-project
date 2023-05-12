@@ -28,7 +28,7 @@ public class JsonWriterTest extends JsonTest {
     @Test
     void writeEmptyCalendarTest() {
         try {
-            Calendar calendar = new Calendar();
+            Calendar calendar = Calendar.getInstance();
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyCalendar.json");
             writer.open();
             writer.write(calendar);
@@ -45,7 +45,7 @@ public class JsonWriterTest extends JsonTest {
     @Test
     void writeGeneralCalendarTest() {
         try {
-            Calendar calendar = new Calendar();
+            Calendar calendar = Calendar.getInstance();
             calendar.addEntry(createDay1());
             calendar.setCalc(createCalculator());
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralCalendar.json");
@@ -74,7 +74,7 @@ public class JsonWriterTest extends JsonTest {
     }
 
     private Calculator createCalculator() {
-        Calculator calc = new Calculator();
+        Calculator calc = Calculator.getInstance();
         calc.setGender("male");
         calc.setAge(18);
         calc.setHeight(175);

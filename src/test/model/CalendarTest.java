@@ -14,7 +14,7 @@ public class CalendarTest {
 
     @BeforeEach
     public void setup() {
-        calendar = new Calendar();
+        calendar = Calendar.getInstance();
         day1 = new CalorieLog();
         day2 = new CalorieLog();
     }

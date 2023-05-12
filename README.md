@@ -46,15 +46,6 @@ Data Persistence Model Based On
 https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
 
-# Instructions for Grader
-
-- You can generate the first required action related to adding Xs to a Y by clicking the 'x' button in the top right corner of each day to remove a day from the calendar
-- You can generate the second required action related to adding Xs to a Y by clicking the 'View Log' button at the bottom of each day to view more details about a day in the calendar
-- You can locate my visual component at the home screen - it is the big "DietKing" logo (imported from a .png file)
-- You can save the state of my application by clicking the 'Save Calendar' button on the home screen
-- You can reload the state of my application by clicking the 'Load Calendar' button on the home screen
-
-
 
 # Sample Events
 
@@ -75,28 +66,4 @@ Added CalorieLog: Day 3 (1900 Cals)
 
 Mon Apr 10 21:24:34 PDT 2023 -
 Removed CalorieLog: Day 1 (3200 Cals)
-
-
-# Phase 4: Task 3
-
-One major refactoring I would complete if I had more 
-time would be to split my GUI class into 5 separate
-classes. This way, I could have one class for each JPanel
-in my GUI - my home panel, my calculator panel, my calorie
-log panel, my calendar panel, and my past-logs panel. 
-This change would be quite difficult, as I currently have fields
-with usages relating to 2 or more different panels, and
-I would still need to maintain the 'return' button on each
-of my panels. So, I would need to invest a lot of time 
-into determining the most effective way in which I 
-could structure my class relationships. 
-
-Making this change would greatly improve my code as it would follow the 
-Single Responsibility Principle much more effectively; each 
-class would be much more focused towards one specific area
-of the project. Additionally, this would make debugging a 
-lot easier since I wouldn't have to go through a substantial 
-amount of code in one class - I would be able to locate 
-which of the 5 panels were not working properly and then
-easily fix the bug by finding the issue in the specific class related to that panel.
 

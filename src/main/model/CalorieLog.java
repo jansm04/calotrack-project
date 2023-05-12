@@ -26,7 +26,7 @@ public class CalorieLog implements Writable {
         this.foods = new LinkedList<>();
         this.cals = new LinkedList<>();
         this.weight = 0;
-        this.date = new Date(0, "", 0000);
+        this.date = new Date(0, "", 0);
     }
 
     // MODIFIES: this

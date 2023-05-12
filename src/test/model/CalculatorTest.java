@@ -11,7 +11,7 @@ public class CalculatorTest {
 
     @BeforeEach
     public void setup() {
-        calc = new Calculator();
+        calc = Calculator.getInstance();
         calc.setGender("male");
         calc.setAge(18);
         calc.setHeight(178);

@@ -4,7 +4,6 @@ import model.Calendar;
 import model.CalorieLog;
 import model.Date;
 import org.junit.jupiter.api.Test;
-import ui.GUI;
 
 import java.io.IOException;
 import java.util.LinkedList;

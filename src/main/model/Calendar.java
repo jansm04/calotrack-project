@@ -2,8 +2,6 @@ package model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import persistence.JsonReader;
-import persistence.JsonWriter;
 import persistence.Writable;
 
 import java.util.ArrayList;
@@ -12,14 +10,18 @@ import java.util.List;
 // Calendar class: allows the user to add an arbitrary number of CalorieLogs to a 'calendar'
 public class Calendar implements Writable {
 
-    private Calculator calc;
-    private List<CalorieLog> days;
+    private final List<CalorieLog> days;
+
+    private static final Calendar calendar = new Calendar();
+
+    public static Calendar getInstance() {
+        return calendar;
+    }
 
     // MODIFIES: this
     // EFFECTS: constructs a calendar with an empty list of entries
-    public Calendar() {
+    private Calendar() {
         this.days = new ArrayList<>();
-        this.calc = new Calculator();
     }
 
 
@@ -52,16 +54,13 @@ public class Calendar implements Writable {
         return days;
     }
 
-    public Calculator getCalculator() {
-        return calc;
-    }
 
     // EFFECTS: converts a calendar to a Json object
     @Override
     public JSONObject toJSonObject() {
         JSONObject json = new JSONObject();
         json.put("days", daysToJson());
-        json.put("calculator", calc.toJSonObject());
+        json.put("calculator", Calculator.getInstance().toJSonObject());
         return json;
     }
 
@@ -76,9 +75,6 @@ public class Calendar implements Writable {
         return jsonArray;
     }
 
-    public void setCalc(Calculator calc) {
-        this.calc = calc;
-    }
 
 
 }
