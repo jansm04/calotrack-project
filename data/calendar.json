@@ -140,15 +140,9 @@
                 "year": 0,
                 "day": 0
             },
-            "foods": [
-                {"food": "apple"},
-                {"food": "pasta"}
-            ],
+            "foods": [{"food": "apple"}],
             "weight": 0,
-            "cals": [
-                {"num": 100},
-                {"num": 400}
-            ]
+            "cals": [{"num": 1340}]
         }
     ]
 }

@@ -92,7 +92,7 @@ public class CalendarPanel extends JPanel implements PanelSetup {
     public void createBox(int x, int y) {
         JLabel box = new JLabel();
         box.setBounds(x, y, 160, 162);
-        box.setBackground(Color.getHSBColor(0.57f, 0.8f, 0.6f));
+        box.setBackground(Color.getHSBColor(0.59f, 0.9f, 0.75f));
         box.setBorder(BorderFactory.createCompoundBorder());
         box.setOpaque(true);
         box.setForeground(Color.white);

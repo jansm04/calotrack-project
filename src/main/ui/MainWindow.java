@@ -11,6 +11,7 @@ import ui.panels.CalorieLogPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.StyledEditorKit;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -39,8 +40,7 @@ public class MainWindow extends JFrame {
     JButton saveCalendar;
     JButton loadCalendar;
 
-    JLabel saved;
-    JLabel loaded;
+    JLabel status;
 
     // MODIFIES: this
     // EFFECTS: constructs a calendar with an empty list of entries
@@ -82,6 +82,30 @@ public class MainWindow extends JFrame {
         optionsPanel.add(leftRect);
     }
 
+    public void addTopRectangle() {
+        JPanel topRect = new JPanel() {
+            @Override
+            public void paint(Graphics g) {
+                g.fillRoundRect(10, 8, 970, 75, 20, 20);
+            }
+        };
+        topRect.setBounds(10, 8, 980, 95);
+        topRect.setForeground(Color.getHSBColor(0f, 0f, 0.1f));
+        optionsPanel.add(topRect);
+    }
+
+    public void addBottomRectangle() {
+        JPanel bottomRect = new JPanel() {
+            @Override
+            public void paint(Graphics g) {
+                g.fillRoundRect(0, 0, 970, 65, 20, 20);
+            }
+        };
+        bottomRect.setBounds(20, 589, 990, 95);
+        bottomRect.setForeground(Color.getHSBColor(0f, 0f, 0.1f));
+        optionsPanel.add(bottomRect);
+    }
+
 
     // MODIFIES: this
     // EFFECTS: sets up the calculator JPanel
@@ -94,11 +118,15 @@ public class MainWindow extends JFrame {
         calendarPanel.setVisible(false);
         optionsPanel.setVisible(true);
         add(optionsPanel);
-        loadedText();
-        saveText();
+
+        addStatusText();
         addButtons();
         addCalotrackLogo();
+
         addLeftRectangle();
+        addTopRectangle();
+        addBottomRectangle();
+
         setVisible(true);
     }
 
@@ -172,9 +200,9 @@ public class MainWindow extends JFrame {
         loadCalendar.addActionListener(e -> {
             try {
                 this.calendar = READER.read();
-                loaded.setText("Your previous calendar has been loaded!");
-                loaded.setForeground(Color.white);
-                loaded.setVisible(true);
+                status.setText("Your calendar has been loaded!");
+                status.setForeground(Color.white);
+                status.setVisible(true);
             } catch (IOException e2) {
                 throw new RuntimeException(e2);
             }
@@ -196,9 +224,9 @@ public class MainWindow extends JFrame {
             }
             WRITER.write(calendar);
             WRITER.close();
-            saved.setText("Your calendar has been saved!");
-            saved.setForeground(Color.white);
-            saved.setVisible(true);
+            status.setText("Your calendar has been saved!");
+            status.setForeground(Color.white);
+            status.setVisible(true);
         });
         optionsPanel.add(saveCalendar);
     }
@@ -216,23 +244,14 @@ public class MainWindow extends JFrame {
 
     }
 
-
-    // MODIFIES: this
-    // EFFECTS: JLabel to confirm saved calendar
-    public void saveText() {
-        saved = new JLabel();
-        saved.setBounds(407, 600, 200, 40);
-        saved.setVisible(false);
-        optionsPanel.add(saved);
-    }
-
     // MODIFIES: this
     // EFFECTS: JLabel to confirm loaded calendar
-    public void loadedText() {
-        loaded = new JLabel();
-        loaded.setBounds(372, 600, 280, 40);
-        loaded.setVisible(false);
-        optionsPanel.add(loaded);
+    public void addStatusText() {
+        status = new JLabel();
+        status.setBounds(718, 490, 250, 40);
+        status.setFont(new Font("Arial", Font.PLAIN, 14));
+        status.setVisible(false);
+        optionsPanel.add(status);
     }
 
 
@@ -280,10 +299,8 @@ public class MainWindow extends JFrame {
         JButton finishLog = new JButton("Save and Quit Log");
         finishLog.setBounds(440, 520, 150, 50);
         finishLog.addActionListener(e -> {
-            calorieLogPanel.collectFirstFiveFoods();
-            calorieLogPanel.collectLastFiveFoods();
-            calorieLogPanel.collectFirstFiveCals();
-            calorieLogPanel.collectLastFiveCals();
+            calorieLogPanel.collectFoods();
+            calorieLogPanel.collectCals();
             calorieLogPanel.collectWeightAndDate();
             calorieLogPanel.addLog();
             calorieLogPanel.removeAll();

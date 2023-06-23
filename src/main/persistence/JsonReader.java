@@ -42,6 +42,7 @@ public class JsonReader {
     // EFFECTS: parses calendar from JSON object and returns it
     private Calendar parseCalendar(JSONObject jsonObject) {
         Calendar calendar = Calendar.getInstance();
+        calendar.resetEntries();
         JSONObject jsonCalc = (JSONObject) jsonObject.get("calculator");
         addCalculator(calendar, jsonCalc);
         addCalorieLogs(calendar, jsonObject);

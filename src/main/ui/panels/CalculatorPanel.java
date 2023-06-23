@@ -10,7 +10,6 @@ public class CalculatorPanel extends JPanel implements PanelSetup {
 
     Calendar calendar;
     Calculator calculator;
-    String objective;
     int weightGoal;
 
     JTextField genderAnswer;
@@ -56,7 +55,7 @@ public class CalculatorPanel extends JPanel implements PanelSetup {
     // EFFECTS: adds result to calcPanel
     public void addResult() {
         int total = calculator.totalDailyCaloricRequirement();
-        JLabel result = new JLabel("Daily Caloric Requirement: ");
+        result = new JLabel("Daily Caloric Requirement: ");
         result.setForeground(Color.white);
         result.setBounds(500, 500, 400, 30);
         if (total > 0) {
@@ -230,7 +229,7 @@ public class CalculatorPanel extends JPanel implements PanelSetup {
         this.add(enterObjective);
         enterObjective.addActionListener(e -> {
             collectGoalAnswers();
-            if (!objective.equals("maintain")) {
+            if (!calculator.getObjective().equals("maintain")) {
                 weightGoalQuestion.setVisible(true);
                 weightGoalAnswer.setVisible(true);
                 timeQuestion.setVisible(true);

@@ -30,10 +30,6 @@ public class Event {
     public Date getDate() {
         return dateLogged;
     }
-	
-    public String getDescription() {
-        return description;
-    }
 
     @Override
     public boolean equals(Object other) {

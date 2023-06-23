@@ -10,7 +10,7 @@ import java.util.List;
 // Calendar class: allows the user to add an arbitrary number of CalorieLogs to a 'calendar'
 public class Calendar implements Writable {
 
-    private final List<CalorieLog> days;
+    private List<CalorieLog> days;
 
     private static final Calendar calendar = new Calendar();
 
@@ -48,6 +48,13 @@ public class Calendar implements Writable {
             }
         }
     }
+
+    // MODIFIES: this
+    // EFFECTS: resets the entries by creating a new empty list
+    public void resetEntries() {
+        this.days = new ArrayList<>();
+    }
+
 
 
     public List<CalorieLog> getDays() {
