@@ -1,4 +1,4 @@
-# "DietKing" Personal Project
+## CALOTRACK Personal Project
 
 By: Jan S.
 

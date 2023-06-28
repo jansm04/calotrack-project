@@ -332,9 +332,8 @@ public class MainWindow extends JFrame {
         optionsPanel.setVisible(false);
         calendarPanel.setPanelLayout();
         this.returnButtonForCalendar();
-        this.addRemoveLogButtons();
+        this.addRemoveLogButtons(0, Math.min(calendar.getDays().size(), 14));
         calendarPanel.setup();
-
     }
 
 
@@ -352,26 +351,23 @@ public class MainWindow extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: turns all CalorieLogs into boxes with summary
-    public void addRemoveLogButtons() {
-        int num = 0;
-        int removeX = 203;
-        int removeY = 59;
-        for (int i = 0; i < calendar.getDays().size(); i++) {
-            this.createRemoveLogButton(i, removeX, removeY);
-            removeX += 180;
-            if ((num + 1) % 5 == 0) {
-                removeX = 203;
-                removeY += 182;
+    public void addRemoveLogButtons(int start, int end) {
+        int removeY = 61;
+        for (int i = start; i < end; i++) {
+            this.createRemoveLogButton(i, removeY);
+            removeY += 37;
+            if (i == 6) {
+                removeY += 10;
             }
-            num++;
         }
     }
 
     // MODIFIES: this
     // EFFECTS: adds a remove log button for CalorieLog at given index at given x and y to calendarPanel
-    public void createRemoveLogButton(int index, int x, int y) {
+    public void createRemoveLogButton(int index, int y) {
         JButton removeLog = new JButton("X");
-        removeLog.setBounds(x, y, 20, 20);
+        removeLog.setBounds(890, y, 40, 28);
+        removeLog.setForeground(Color.red);
         removeLog.addActionListener(e -> {
             calendar.removeEntry(index);
             calendarPanel.setVisible(false);
