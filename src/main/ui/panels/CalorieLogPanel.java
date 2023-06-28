@@ -7,6 +7,8 @@ import model.CalorieLog;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +30,7 @@ public class CalorieLogPanel extends JPanel implements PanelSetup {
     JTextField dateMonthTextField;
     JTextField dateDayTextField;
     JTextField dateYearTextField;
+    JLabel totalLabel;
 
     public CalorieLogPanel() {
         this.calculator = Calculator.getInstance();
@@ -49,9 +52,9 @@ public class CalorieLogPanel extends JPanel implements PanelSetup {
         indexLabels = new ArrayList<>(10);
         foodTextFields = new ArrayList<>(10);
         calTextFields = new ArrayList<>(10);
-        addTotalCaloricRequirement();
-        startIteration();
-        addSmallCalotrackLogo();
+        this.addTotalCaloricRequirement();
+        this.startIteration();
+        this.addSmallCalotrackLogo();
     }
 
     // MODIFIES: this
@@ -188,6 +191,32 @@ public class CalorieLogPanel extends JPanel implements PanelSetup {
         dateYearTextField = new JTextField(20);
         dateYearTextField.setBounds(260, 540, 70, 30);
         this.add(dateYearTextField);
+    }
+
+    public void addTotalLabel() {
+        totalLabel = new JLabel("");
+        totalLabel.setBounds(460, 460, 100, 30);
+        totalLabel.setBackground(Color.lightGray);
+        totalLabel.setBorder(BorderFactory.createLineBorder(Color.getHSBColor(0.4f, 0.4f, 0.35f), 1));
+        totalLabel.setOpaque(true);
+        this.add(totalLabel);
+    }
+
+
+    public void addTotalButton() {
+        JButton totalButton = new JButton("Total Calories:");
+        totalButton.setBounds(305, 460, 150, 30);
+        totalButton.addActionListener(e -> {
+            int total = 0;
+            for (JTextField cal : calTextFields) {
+                String t = cal.getText();
+                if (!t.equals("")) {
+                    total += Integer.parseInt(cal.getText());
+                }
+            }
+            totalLabel.setText(" " + total + " cals");
+        });
+        this.add(totalButton);
     }
 
 

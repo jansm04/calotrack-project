@@ -82,6 +82,18 @@ public class MainWindow extends JFrame {
         optionsPanel.add(leftRect);
     }
 
+    public void addRightRectangle() {
+        JPanel rightRect = new JPanel() {
+            @Override
+            public void paint(Graphics g) {
+                g.fillRoundRect(10, 50, 320, 480, 20, 20);
+            }
+        };
+        rightRect.setBounds(660, 50, 360, 550);
+        rightRect.setForeground(Color.getHSBColor(0f, 0f, 0.2f));
+        optionsPanel.add(rightRect);
+    }
+
     public void addTopRectangle() {
         JPanel topRect = new JPanel() {
             @Override
@@ -126,6 +138,7 @@ public class MainWindow extends JFrame {
         addLeftRectangle();
         addTopRectangle();
         addBottomRectangle();
+        addRightRectangle();
 
         setVisible(true);
     }
@@ -289,6 +302,7 @@ public class MainWindow extends JFrame {
         optionsPanel.setVisible(false);
         calorieLogPanel.setPanelLayout();
         this.returnFromLogButton();
+        this.addTotalChecker();
         this.finishLogButton();
         calorieLogPanel.setup();
     }
@@ -307,6 +321,11 @@ public class MainWindow extends JFrame {
             this.openOptionsPanel();
         });
         calorieLogPanel.add(finishLog);
+    }
+
+    public void addTotalChecker() {
+        calorieLogPanel.addTotalLabel();
+        calorieLogPanel.addTotalButton();
     }
 
 
